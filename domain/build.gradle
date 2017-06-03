@@ -1,0 +1,12 @@
+apply plugin: 'java'
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    // https://mvnrepository.com/artifact/net.sf.opencsv/opencsv
+    implementation group: 'net.sf.opencsv', name: 'opencsv', version: '2.3'
+
+}
+
+sourceCompatibility = "1.7"
+targetCompatibility = "1.7"

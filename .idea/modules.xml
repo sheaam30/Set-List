@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/SetList.iml" filepath="$PROJECT_DIR$/SetList.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Set-List.iml" filepath="$PROJECT_DIR$/Set-List.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/domain/domain.iml" filepath="$PROJECT_DIR$/domain/domain.iml" />
       <module fileurl="file://$PROJECT_DIR$/pettit/pettit.iml" filepath="$PROJECT_DIR$/pettit/pettit.iml" />

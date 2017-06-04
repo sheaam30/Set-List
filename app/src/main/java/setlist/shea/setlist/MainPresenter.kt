@@ -2,6 +2,10 @@ package setlist.shea.setlist
 
 import android.os.Bundle
 import com.shea.mvp.presenter.BasePresenter
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.functions.Consumer
+import io.reactivex.schedulers.Schedulers
+import timber.log.Timber
 
 /**
  * Created by Adam on 6/3/2017.
@@ -26,6 +30,10 @@ class MainPresenter internal constructor(interactor: MainInteractor, view: MainV
 
     override fun onCreate() {
         super.onCreate()
+        interactor.importSetList("sample_sheet.csv")
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(Consumer { Timber.i("Success") }, Consumer { throwable -> Timber.e(throwable) })
     }
 
     override fun onStart() {

@@ -1,28 +1,24 @@
 package com.shea.mvp.activity
 
-import android.arch.lifecycle.LifecycleActivity
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-
 import com.shea.mvp.presenter.BasePresenter
 
 abstract class BaseActivity<T : BasePresenter<*, *>> : AppCompatLifecycleActivity() {
 
-    protected lateinit var presenter: T
-
     override fun onCreate(savedInstanceState: Bundle?) {
+        injectDependencies()
         super.onCreate(savedInstanceState)
         setContentView(layoutId)
-        createPresenter(savedInstanceState)
-        presenter.setupViews(savedInstanceState)
-        lifecycle.addObserver(presenter)
+        getPresenter().setupViews(savedInstanceState)
+        lifecycle.addObserver(getPresenter())
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        presenter.onSaveState(outState)
+        getPresenter().onSaveState(outState)
     }
 
-    protected abstract fun createPresenter(restoredBundle: Bundle?)
+    open fun injectDependencies() { }
+    protected abstract fun getPresenter() : T
     protected abstract val layoutId: Int
 }

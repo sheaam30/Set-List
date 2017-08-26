@@ -1,16 +1,9 @@
-package setlist.shea.setlist
+package setlist.shea.setlist.main
 
-import android.app.Activity
-import android.os.Bundle
-import android.support.annotation.IdRes
 import android.support.design.widget.BottomNavigationView
-import android.view.View
-import android.widget.TextView
 import com.shea.mvp.activity.BaseActivity
-import com.shea.mvp.presenter.BasePresenterInterface
 import com.shea.mvp.view.BaseView
-import kotlin.properties.ReadOnlyProperty
-import kotlin.reflect.KProperty
+import setlist.shea.setlist.R
 
 /**
  * Created by Adam on 6/3/2017.
@@ -18,8 +11,9 @@ import kotlin.reflect.KProperty
 open class MainView(activity: BaseActivity<*>?) : BaseView<MainInterface>(activity) {
     lateinit var navigation: BottomNavigationView
 
-    override fun onSetupViews(savedInstanceState: Bundle?) {
+    override fun onSetupViews(savedInstanceState: android.os.Bundle?) {
         navigation = bind(R.id.navigation)
+
         navigation.setOnNavigationItemSelectedListener  { item ->
             when (item.itemId) {
                 R.id.navigation_home -> {

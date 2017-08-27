@@ -1,0 +1,3 @@
+[submodule "pettit"]
+	path = pettit
+	url = http://github.com/sheaam30/Pettit.git

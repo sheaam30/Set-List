@@ -8,7 +8,7 @@ import io.reactivex.schedulers.Schedulers
 /**
  * Created by Adam on 6/3/2017.
  */
-class MainPresenter constructor(interactor: MainInteractor, view: MainView) : BasePresenter<MainInteractor, MainView>(interactor, view), MainInterface {
+class MainPresenter constructor(interactor: MainInteractor, view: MainView) : BasePresenter<MainInteractor, MainView>(interactor, view), MainInterface.MainPresenterInterface {
 
     override fun onSetupViews(savedInstanceState: android.os.Bundle?) {
         super.onSetupViews(savedInstanceState)
@@ -76,10 +76,6 @@ class MainPresenter constructor(interactor: MainInteractor, view: MainView) : Ba
     override fun onStop() {
         super.onStop()
         view.detach()
-    }
-
-    override fun onSaveState(outState: android.os.Bundle) {
-        super.onSaveState(outState)
     }
 
     override fun pageClicked(index: Int) {

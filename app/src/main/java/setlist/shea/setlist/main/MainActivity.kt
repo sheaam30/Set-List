@@ -18,5 +18,5 @@ class MainActivity : com.shea.mvp.activity.BaseActivity<MainPresenter>() {
     }
 
     override val layoutId: Int
-        get() = setlist.shea.setlist.R.layout.activity_main //To change initializer of created properties use File | Settings | File Templates.
+        get() = setlist.shea.setlist.R.layout.activity_main
 }

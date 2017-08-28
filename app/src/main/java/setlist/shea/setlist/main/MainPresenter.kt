@@ -8,23 +8,7 @@ import io.reactivex.schedulers.Schedulers
 /**
  * Created by Adam on 6/3/2017.
  */
-class MainPresenter constructor(interactor: MainInteractor, view: MainView) : BasePresenter<MainInteractor, MainView>(interactor, view), MainInterface.MainPresenterInterface {
-
-    override fun onSetupViews(savedInstanceState: android.os.Bundle?) {
-        super.onSetupViews(savedInstanceState)
-    }
-
-    override fun onResume() {
-        super.onResume()
-    }
-
-    override fun onPause() {
-        super.onPause()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-    }
+class MainPresenter constructor(interactor: MainInteractor, view: MainInterface.MainViewInterface) : BasePresenter<MainInteractor, MainInterface.MainViewInterface>(interactor, view), MainInterface.MainPresenterInterface {
 
     override fun onCreate() {
         super.onCreate()
@@ -68,16 +52,7 @@ class MainPresenter constructor(interactor: MainInteractor, view: MainView) : Ba
 //        sendIntent.type = "text/richtext"
 //    }
 
-    override fun onStart() {
-        super.onStart()
-        view.attach(this)
-    }
-
-    override fun onStop() {
-        super.onStop()
-        view.detach()
-    }
-
     override fun pageClicked(index: Int) {
+        view.showPage(index)
     }
 }

@@ -1,17 +1,16 @@
 package setlist.shea.setlist.main
 
 import io.reactivex.Flowable
-import setlist.shea.domain.csv.Parser
-import setlist.shea.domain.csv.Writer
+import setlist.shea.domain.csv.ParserInterface
+import setlist.shea.domain.csv.WriterInterface
 import setlist.shea.domain.db.SongDao
 import setlist.shea.domain.model.Song
-import setlist.shea.setlist.SetListApp.Companion.context
 import javax.inject.Inject
 
 /**
  * Created by Adam on 6/3/2017.
  */
-class MainInteractor @Inject constructor(val songDao: SongDao, val parser: Parser, val writer: Writer) : com.shea.mvp.interactor.BaseInteractor() {
+class MainInteractor @Inject constructor(val songDao: SongDao, val parser: ParserInterface, val writer: WriterInterface) : com.shea.mvp.interactor.BaseInteractor() {
 
     fun importSetList(path : String) : io.reactivex.Single<List<Song>> {
         return io.reactivex.Single.defer {

@@ -5,17 +5,14 @@ import dagger.Provides
 import setlist.shea.domain.csv.Parser
 import setlist.shea.domain.csv.Writer
 import setlist.shea.domain.db.SongDao
-import setlist.shea.setlist.main.MainActivity
-import setlist.shea.setlist.main.MainInteractor
-import setlist.shea.setlist.main.MainPresenter
-import setlist.shea.setlist.main.MainView
+import setlist.shea.setlist.main.*
 
 @Module
 class MainActivityModule {
 
     @Provides
-    fun provideMainPresenter(mainView: MainView, mainInteractor: MainInteractor) : MainPresenter {
-        return MainPresenter(mainInteractor, mainView)
+    fun provideMainPresenter(mainViewInterface: MainInterface.MainViewInterface, mainInteractor: MainInteractor) : MainInterface.MainPresenterInterface {
+        return MainPresenter(mainInteractor, mainViewInterface)
     }
 
     @Provides
@@ -24,7 +21,7 @@ class MainActivityModule {
     }
 
     @Provides
-    fun provideMainView(activity: MainActivity) : MainView {
+    fun provideMainView(activity: MainActivity) : MainInterface.MainViewInterface {
         return MainView(activity)
     }
 }

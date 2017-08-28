@@ -4,16 +4,16 @@ import com.opencsv.CSVReader
 import setlist.shea.domain.model.Song
 import java.io.InputStream
 import java.io.InputStreamReader
-import java.util.ArrayList
+import java.util.*
 
 /**
  * Created by Adam on 6/4/2017.
  */
-class Parser {
+class Parser : ParserInterface {
 
     lateinit var csvReader : CSVReader
 
-    fun readFile(inputStream: InputStream?) : List<Song> {
+    override fun readFile(inputStream: InputStream?) : List<Song> {
 
         csvReader = CSVReader(InputStreamReader(inputStream))
 

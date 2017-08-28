@@ -4,15 +4,15 @@ import com.opencsv.CSVWriter
 import setlist.shea.domain.model.Song
 import java.io.File
 import java.io.FileWriter
-import java.util.ArrayList
+import java.util.*
 
 
 /**
  * Created by Adam on 6/4/2017.
  */
-class Writer {
+class Writer : WriterInterface{
 
-    fun writeFile(file : File, songList : List<Song>) {
+    override fun writeFile(file : File, songList : List<Song>) {
         val writer = FileWriter(file)
         //using custom delimiter and quote character
         val csvWriter = CSVWriter(writer, ',')
@@ -21,7 +21,7 @@ class Writer {
         csvWriter.close()
     }
 
-    fun toStringArray(songList: List<Song>) : ArrayList<Array<String>> {
+    private fun toStringArray(songList: List<Song>) : ArrayList<Array<String>> {
         val returnList = ArrayList<Array<String>>()
 
         for (song : Song in songList) {

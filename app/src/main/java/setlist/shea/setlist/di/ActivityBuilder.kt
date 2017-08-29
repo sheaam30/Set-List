@@ -1,11 +1,11 @@
 package setlist.shea.setlist.di
 
-import dagger.Module
 import android.app.Activity
-import dagger.android.AndroidInjector
-import dagger.android.ActivityKey
-import dagger.multibindings.IntoMap
 import dagger.Binds
+import dagger.Module
+import dagger.android.ActivityKey
+import dagger.android.AndroidInjector
+import dagger.multibindings.IntoMap
 import setlist.shea.setlist.main.MainActivity
 import setlist.shea.setlist.main.di.MainActivityComponent
 
@@ -20,5 +20,4 @@ abstract class ActivityBuilder {
     @IntoMap
     @ActivityKey(MainActivity::class)
     internal abstract fun bindMainActivity(builder: MainActivityComponent.Builder): AndroidInjector.Factory<out Activity>
-
 }

@@ -8,10 +8,9 @@ import com.shea.mvp.presenter.BaseInterface
 interface MainInterface {
 
     interface MainViewInterface : BaseInterface.BaseViewInterface {
-        fun showPage(index : Int)
+        fun showList()
     }
 
     interface MainPresenterInterface : BaseInterface.BasePresenterInterface {
-        fun pageClicked(index : Int)
     }
 }

@@ -1,18 +1,17 @@
 package setlist.shea.setlist.di
 
 import android.app.Application
+import dagger.BindsInstance
 import dagger.Component
-import dagger.android.AndroidInjectionModule
 import setlist.shea.domain.di.RoomModule
 import setlist.shea.setlist.SetListApp
 import javax.inject.Singleton
-import dagger.BindsInstance
-import setlist.shea.setlist.main.MainInteractor
 
 @Singleton
 @Component(modules = arrayOf(RoomModule::class,
         ApplicationModule::class,
-        ActivityBuilder::class))
+        ActivityBuilder::class,
+        FragmentBuilder::class))
 interface ApplicationComponent {
 
     @Component.Builder

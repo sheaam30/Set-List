@@ -3,4 +3,6 @@
     <string name="title_list">List</string>
     <string name="title_load_save">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="shared_prefs">Private_Preferences</string>
+    <string name="no_set_list">No Set List</string>
 </resources>

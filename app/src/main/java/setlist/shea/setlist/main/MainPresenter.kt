@@ -52,7 +52,4 @@ class MainPresenter constructor(interactor: MainInteractor, view: MainInterface.
 //        sendIntent.type = "text/richtext"
 //    }
 
-    override fun pageClicked(index: Int) {
-        view.showPage(index)
-    }
 }

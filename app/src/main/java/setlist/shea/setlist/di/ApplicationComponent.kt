@@ -10,8 +10,7 @@ import javax.inject.Singleton
 @Singleton
 @Component(modules = arrayOf(RoomModule::class,
         ApplicationModule::class,
-        ActivityBuilder::class,
-        FragmentBuilder::class))
+        ActivityFragmentProvider::class))
 interface ApplicationComponent {
 
     @Component.Builder

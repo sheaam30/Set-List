@@ -1,6 +1,7 @@
 package setlist.shea.setlist.list
 
 import com.shea.mvp.presenter.BaseInterface
+import setlist.shea.domain.model.SetList
 import setlist.shea.domain.model.Song
 
 /**
@@ -13,8 +14,11 @@ interface SetListInterface {
         fun showListState()
         fun displaySongs(songs: List<Song>)
         fun showErrorState()
+        fun showAddListDialog()
     }
 
     interface ListPresenterInterface : BaseInterface.BasePresenterInterface {
+        fun onAddListFabClicked()
+        fun addSetList(setList : SetList)
     }
 }

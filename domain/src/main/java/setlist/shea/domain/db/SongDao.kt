@@ -13,11 +13,11 @@ interface SongDao {
     @Query("SELECT * FROM song")
     fun getAll() : Flowable<List<Song>>
 
-    @Query("SELECT * FROM song WHERE setList LIKE :arg0")
+    @Query("SELECT * FROM song WHERE listName = :setList")
     fun getSetList(setList : String) : Flowable<List<Song>>
 
     @Insert
-    fun insertAll(song : Song)
+    fun insertSong(song : Song)
 
     @Delete
     fun delete(song : Song)

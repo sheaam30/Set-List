@@ -9,8 +9,8 @@ allprojects {
 }
 
 buildscript {
-    ext.kotlin_version = '1.1.4-2'
-    ext.archVersion = '1.0.0-alpha9'
+    ext.kotlin_version = '1.1.4-3'
+    ext.archVersion = '1.0.0-alpha9-1'
     ext.daggerVersion = '2.11'
 
     repositories {
@@ -18,7 +18,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.0-beta3'
+        classpath 'com.android.tools.build:gradle:3.0.0-beta5'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
     }

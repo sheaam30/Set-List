@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 kapt {
     generateStubs = true
@@ -38,25 +39,24 @@ dependencies {
     kapt "android.arch.lifecycle:compiler:$archVersion"
     kapt "com.google.dagger:dagger-compiler:$daggerVersion"
     kapt "android.arch.persistence.room:compiler:$archVersion"
-    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
 
     //Android Dependency's
     implementation "android.arch.persistence.room:rxjava2:$archVersion"
     implementation "android.arch.persistence.room:runtime:$archVersion"
-    implementation 'com.android.support:appcompat-v7:26.0.1'
+    implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.jakewharton:butterknife:8.6.0'
-    implementation "android.arch.lifecycle:runtime:$archVersion"
+    implementation "android.arch.lifecycle:runtime:1.0.0"
     implementation "android.arch.lifecycle:extensions:$archVersion"
-    implementation 'com.android.support:design:26.0.1'
+    implementation 'com.android.support:design:26.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     //noinspection GradleCompatible
-    implementation 'com.android.support:support-vector-drawable:25.4.0'
+    implementation 'com.android.support:support-vector-drawable:26.1.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     implementation "com.google.dagger:dagger:$daggerVersion"
     implementation "com.google.dagger:dagger-android-support:$daggerVersion"
 
     //3rd Party Dependency's
-    implementation "io.reactivex.rxjava2:rxjava:2.1.0"
+    implementation "io.reactivex.rxjava2:rxjava:2.1.2"
     implementation 'com.jakewharton.timber:timber:4.5.1'
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
 

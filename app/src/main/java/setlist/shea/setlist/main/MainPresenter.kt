@@ -1,8 +1,6 @@
 package setlist.shea.setlist.main
 
 import com.shea.mvp.presenter.BasePresenter
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 
 
 /**
@@ -12,13 +10,9 @@ class MainPresenter constructor(interactor: MainInteractor, view: MainInterface.
 
     override fun onCreate() {
         super.onCreate()
-        interactor.importSetList("sample_sheet.csv")
-                .subscribeOn(Schedulers.newThread())
-                .flatMapCompletable { setList -> interactor.exportSetList(setList) }
-//                .doOnComplete({ view.sendIntent(getShareFileIntent()) })
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ timber.log.Timber.i("Complete") }, { t -> timber.log.Timber.e(t) })
+        view.showList()
     }
+
 //
 //    private fun getShareFileIntent(): Intent {
 //

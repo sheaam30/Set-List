@@ -6,7 +6,6 @@ import android.content.SharedPreferences
 import dagger.Module
 import dagger.Provides
 import setlist.shea.setlist.R
-import setlist.shea.setlist.main.di.MainActivityComponent
 import javax.inject.Singleton
 
 
@@ -15,7 +14,7 @@ import javax.inject.Singleton
 /**
  * Created by Adam on 7/4/2017.
  */
-@Module(subcomponents = arrayOf(MainActivityComponent::class))
+@Module
 class ApplicationModule {
 
     @Provides

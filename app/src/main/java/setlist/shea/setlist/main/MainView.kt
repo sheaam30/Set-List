@@ -1,5 +1,6 @@
 package setlist.shea.setlist.main
 
+import android.os.Bundle
 import com.shea.mvp.activity.BaseActivity
 import com.shea.mvp.view.BaseView
 import setlist.shea.setlist.R
@@ -10,7 +11,7 @@ import setlist.shea.setlist.list.SetListFragment
  */
 open class MainView(activity: BaseActivity<*>?) : BaseView<MainInterface.MainPresenterInterface>(activity), MainInterface.MainViewInterface {
 
-    override fun onSetupViews(savedInstanceState: android.os.Bundle?) {
+    override fun onSetupViews(savedInstanceState: Bundle?) {
     }
 
     override fun showList() {

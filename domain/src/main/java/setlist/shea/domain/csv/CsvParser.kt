@@ -1,6 +1,7 @@
 package setlist.shea.domain.csv
 
 import com.opencsv.CSVReader
+import setlist.shea.domain.model.SetList
 import setlist.shea.domain.model.Song
 import java.io.InputStream
 import java.io.InputStreamReader
@@ -22,7 +23,7 @@ class CsvParser : Parser {
 
         while (iterator.hasNext()) {
             val record = iterator.next()
-            val emp = Song(record[0], record[1], record[2].toBoolean(), record[3])
+            val emp = Song(record[0], record[1], record[2].toBoolean(), record[3], SetList(record[4]))
             songs.add(emp)
         }
         return ArrayList(songs)

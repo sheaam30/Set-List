@@ -6,6 +6,7 @@ import dagger.Module
 import dagger.Provides
 import setlist.shea.domain.csv.Parser
 import setlist.shea.domain.csv.Writer
+import setlist.shea.domain.db.SetListDao
 import setlist.shea.domain.db.SongDao
 import setlist.shea.setlist.list.*
 
@@ -21,8 +22,8 @@ class SetListFragmentModule {
     }
 
     @Provides
-    fun provideListInteractor(songDao: SongDao, parser: Parser, writer: Writer, sharedPreferences: SharedPreferences) : SetListInteractor {
-        return SetListInteractor(songDao, parser, writer, sharedPreferences)
+    fun provideListInteractor(songDao: SongDao, setListDao: SetListDao, parser: Parser, writer: Writer, sharedPreferences: SharedPreferences) : SetListInteractor {
+        return SetListInteractor(songDao, setListDao, parser, writer, sharedPreferences)
     }
 
     @Provides

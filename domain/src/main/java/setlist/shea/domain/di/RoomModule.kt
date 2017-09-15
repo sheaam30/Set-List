@@ -4,6 +4,7 @@ import android.arch.persistence.room.Room
 import android.content.Context
 import dagger.Module
 import dagger.Provides
+import setlist.shea.domain.db.SetListDao
 import setlist.shea.domain.db.SetListDatabase
 import setlist.shea.domain.db.SongDao
 import javax.inject.Singleton
@@ -14,6 +15,12 @@ class RoomModule {
     @Singleton
     fun provideSongDao(setListDatabase: SetListDatabase): SongDao {
         return setListDatabase.songDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideSetListDao(setListDatabase: SetListDatabase): SetListDao {
+        return setListDatabase.setListDao()
     }
 
     @Provides

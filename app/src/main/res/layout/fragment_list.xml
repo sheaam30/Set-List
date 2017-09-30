@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <ViewSwitcher
         android:id="@+id/view_switcher"
@@ -25,15 +26,6 @@
                 android:layout_height="match_parent"
                 android:gravity="center"/>
 
-            <android.support.design.widget.FloatingActionButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/fab"
-                android:layout_gravity="bottom|end"
-                android:src="@drawable/ic_playlist_add_white_24px"
-                android:layout_marginEnd="36dp"
-                android:layout_marginBottom="36dp"/>
-
         </FrameLayout>
 
         <android.support.v7.widget.RecyclerView
@@ -43,5 +35,15 @@
 
     </ViewSwitcher>
 
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/fab"
+        android:contentDescription="@string/add_set_list"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@drawable/ic_playlist_add_white_24px"
+        android:layout_marginEnd="36dp"
+        android:layout_marginBottom="36dp"/>
 
 </android.support.constraint.ConstraintLayout>

@@ -2,7 +2,7 @@ package setlist.shea.setlist.main.di
 
 import dagger.Module
 import dagger.Provides
-import setlist.shea.domain.db.SongDao
+import setlist.shea.domain.db.SetListDao
 import setlist.shea.setlist.main.*
 
 @Module
@@ -14,8 +14,8 @@ class MainActivityModule {
     }
 
     @Provides
-    fun provideMainInteractor(songDao: SongDao) : MainInteractor {
-        return MainInteractor(songDao)
+    fun provideMainInteractor(setListDao: SetListDao) : MainInteractor {
+        return MainInteractor(setListDao)
     }
 
     @Provides

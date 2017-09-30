@@ -1,6 +1,9 @@
 package setlist.shea.setlist.main
 
 import com.shea.mvp.presenter.BasePresenter
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+import setlist.shea.domain.model.SetList
 
 
 /**
@@ -10,10 +13,21 @@ class MainPresenter constructor(interactor: MainInteractor, view: MainInterface.
 
     override fun onCreate() {
         super.onCreate()
-        view.showList()
+        view.showList(null)
     }
 
-//
+    override fun loadSetListTitles() {
+        interactor.getSetListTitles()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe { t1, _ -> view.showLoadDialog(t1) }
+    }
+
+    override fun loadSetList(setList: SetList) {
+        view.showList(setList)
+    }
+
+    //
 //    private fun getShareFileIntent(): Intent {
 //
 //        /*

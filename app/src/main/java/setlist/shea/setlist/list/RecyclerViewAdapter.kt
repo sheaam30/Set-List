@@ -10,17 +10,31 @@ import setlist.shea.setlist.R
 /**
  * Created by Adam on 8/28/2017.
  */
-class RecyclerViewAdapter : RecyclerView.Adapter<SongViewHolder>() , ItemTouchHelperAdapter {
+class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() , ItemTouchHelperAdapter {
 
     var songs: List<Song> = ArrayList()
+    val VIEW_TYPE_SONG = 1
+    val VIEW_TYPE_ADD_SONG = 2
 
-    override fun onBindViewHolder(holder: SongViewHolder?, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
 
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): SongViewHolder {
-        val view = LayoutInflater.from(parent?.getContext()).inflate(R.layout.song_list_item, parent, false)
-        return SongViewHolder(view)
+    override fun getItemViewType(position: Int): Int {
+        if (position == songs.size) return VIEW_TYPE_ADD_SONG
+        return VIEW_TYPE_SONG
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
+        if (viewType == VIEW_TYPE_SONG) {
+            val view = LayoutInflater.from(parent?.context).inflate(R.layout.song_list_item, parent, false)
+            return SongViewHolder(view)
+        } else if (viewType == VIEW_TYPE_ADD_SONG) {
+            val view = LayoutInflater.from(parent?.context).inflate(R.layout.add_song_list_item, parent, false)
+            return SongViewHolder(view)
+        } else {
+            throw IllegalArgumentException("")
+        }
     }
 
     override fun onItemMove(fromPosition: Int, toPosition: Int) {
@@ -30,6 +44,6 @@ class RecyclerViewAdapter : RecyclerView.Adapter<SongViewHolder>() , ItemTouchHe
     }
 
     override fun getItemCount(): Int {
-        return songs.size
+        return songs.size + 1
     }
 }

@@ -1,6 +1,7 @@
 package setlist.shea.setlist.main
 
 import com.shea.mvp.presenter.BaseInterface
+import setlist.shea.domain.model.SetList
 
 /**
  * Created by Adam on 6/3/2017.
@@ -8,9 +9,12 @@ import com.shea.mvp.presenter.BaseInterface
 interface MainInterface {
 
     interface MainViewInterface : BaseInterface.BaseViewInterface {
-        fun showList()
+        fun showList(setList : SetList?)
+        fun showLoadDialog(setList : List<SetList>)
     }
 
     interface MainPresenterInterface : BaseInterface.BasePresenterInterface {
+        fun loadSetListTitles()
+        fun loadSetList(setList: SetList)
     }
 }

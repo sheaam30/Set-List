@@ -1,6 +1,7 @@
 package setlist.shea.setlist.list
 
 import com.shea.mvp.presenter.BaseInterface
+import io.reactivex.Flowable
 import setlist.shea.domain.model.SetList
 import setlist.shea.domain.model.Song
 
@@ -15,10 +16,12 @@ interface SetListInterface {
         fun displaySongs(songs: List<Song>)
         fun showErrorState()
         fun showAddListDialog()
+        fun showSetList(setList: Flowable<List<Song>>)
     }
 
     interface ListPresenterInterface : BaseInterface.BasePresenterInterface {
         fun onAddListFabClicked()
         fun addSetList(setList : SetList)
+        fun loadSongsFromSetList(setList: SetList)
     }
 }

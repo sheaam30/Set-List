@@ -7,6 +7,6 @@ import android.arch.persistence.room.PrimaryKey
 @Entity
 data class Song(@PrimaryKey var name : String,
                 var artist: String,
-                var played : Boolean,
+                var played : Boolean = false,
                 var genre : String,
                 @Embedded var setList : SetList)

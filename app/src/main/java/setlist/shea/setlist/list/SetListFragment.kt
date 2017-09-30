@@ -3,6 +3,7 @@ package setlist.shea.setlist.list
 import android.os.Bundle
 import com.shea.mvp.fragment.BaseFragment
 import dagger.android.support.AndroidSupportInjection
+import setlist.shea.domain.model.SetList
 import setlist.shea.setlist.R
 import javax.inject.Inject
 
@@ -13,13 +14,14 @@ import javax.inject.Inject
  */
 class SetListFragment : BaseFragment<SetListInterface.ListPresenterInterface>() {
 
-    private val SONGS_KEY = "songs"
-
     @Inject
     lateinit var setListPresenterInterface: SetListInterface.ListPresenterInterface
 
     init {
-        arguments?.get(SONGS_KEY)
+        val setListTitle = arguments?.get(SONGS_KEY)
+        if (setListTitle != null && (setListTitle as String).isNotEmpty()) {
+            setListPresenterInterface.loadSongsFromSetList(SetList(setListTitle))
+        }
     }
 
     override fun injectDependencies() {
@@ -27,13 +29,16 @@ class SetListFragment : BaseFragment<SetListInterface.ListPresenterInterface>() 
     }
 
     companion object {
+        val SONGS_KEY = "songs"
+
         /**
          * new instance pattern for fragment
          */
         @JvmStatic
-        fun newInstance(): SetListFragment {
+        fun newInstance(setList : SetList?): SetListFragment {
             val newsFragment = SetListFragment()
             val args = Bundle()
+            args.putString(SONGS_KEY, setList?.toString())
             newsFragment.arguments = args
             return newsFragment
         }

@@ -4,7 +4,7 @@ import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Delete
 import android.arch.persistence.room.Insert
 import android.arch.persistence.room.Query
-import io.reactivex.Flowable
+import io.reactivex.Single
 import setlist.shea.domain.model.SetList
 
 /**
@@ -14,7 +14,7 @@ import setlist.shea.domain.model.SetList
 interface SetListDao {
 
     @Query("SELECT * FROM setlist")
-    fun getAll() : Flowable<List<SetList>>
+    fun getAll() : Single<List<SetList>>
 
     @Insert
     fun insertSetList(setList: SetList)

@@ -1,8 +1,13 @@
 <resources>
     <string name="app_name">Set List</string>
     <string name="title_list">List</string>
-    <string name="title_load_save">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
     <string name="shared_prefs">Private_Preferences</string>
     <string name="no_set_list">No Set List</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="new_setlist_dialog_title">New Set List</string>
+    <string name="song_item">Song Item</string>
+    <string name="add_set_list">Add Set List</string>
+    <string name="load">Load</string>
+    <string name="save">Save</string>
 </resources>

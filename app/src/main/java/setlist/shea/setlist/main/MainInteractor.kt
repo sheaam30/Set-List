@@ -1,14 +1,15 @@
 package setlist.shea.setlist.main
 
-import io.reactivex.Flowable
-import setlist.shea.domain.db.SongDao
-import setlist.shea.domain.model.Song
+import com.shea.mvp.interactor.BaseInteractor
+import io.reactivex.Single
+import setlist.shea.domain.db.SetListDao
+import setlist.shea.domain.model.SetList
 import javax.inject.Inject
 
 /**
  * Created by Adam on 6/3/2017.
  */
-class MainInteractor @Inject constructor(val songDao: SongDao) : com.shea.mvp.interactor.BaseInteractor() {
+class MainInteractor @Inject constructor(val setListDao: SetListDao) : BaseInteractor() {
 
 //    fun importSetList(path : String) : io.reactivex.Single<List<Song>> {
 //        return io.reactivex.Single.defer {
@@ -25,11 +26,8 @@ class MainInteractor @Inject constructor(val songDao: SongDao) : com.shea.mvp.in
 //        }
 //    }
 
-    fun loadSetList() : Flowable<List<Song>> {
-        return songDao.getAll()
+    fun getSetListTitles() : Single<List<SetList>> {
+        return setListDao.getAll()
     }
 
-    fun saveSetList(setList: List<Song>) {
-        //TODO Save to Dao
-    }
 }

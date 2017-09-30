@@ -9,6 +9,9 @@ import android.widget.EditText
 import android.widget.ViewSwitcher
 import com.shea.mvp.activity.BaseActivity
 import com.shea.mvp.view.BaseView
+import io.reactivex.Flowable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import setlist.shea.domain.model.SetList
 import setlist.shea.domain.model.Song
 import setlist.shea.setlist.R
@@ -52,12 +55,20 @@ open class SetListView(activity: BaseActivity<*>?) : BaseView<SetListInterface.L
 
         dialogBuilder
                 .setView(editText)
-                .setPositiveButton("OK", (DialogInterface.OnClickListener
-                    { dialogInterface, i -> presenterInterface?.addSetList(SetList(editText.))}))
-                .setNegativeButton("Cancel", (DialogInterface.OnClickListener
-                    { dialogInterface, i ->  }))
-                .show()
+                .setTitle(context.getString(R.string.new_setlist_dialog_title))
+                .setPositiveButton(context.getString(R.string.ok), (DialogInterface.OnClickListener
+                    { _, _ -> presenterInterface?.addSetList(SetList(editText.text.toString()))}))
+                .setNegativeButton(context.getString(R.string.cancel), (DialogInterface.OnClickListener
+                    { _, _ ->  }))
+                .create()
 
+    }
+
+    override fun showSetList(setList: Flowable<List<Song>>) {
+        setList
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { list -> adapter.songs = list }
     }
 
     override fun showErrorState() {}

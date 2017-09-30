@@ -2,11 +2,13 @@ package setlist.shea.setlist.list
 
 import android.content.SharedPreferences
 import com.shea.mvp.interactor.BaseInteractor
+import io.reactivex.Completable
 import io.reactivex.Flowable
 import setlist.shea.domain.csv.Parser
 import setlist.shea.domain.csv.Writer
 import setlist.shea.domain.db.SetListDao
 import setlist.shea.domain.db.SongDao
+import setlist.shea.domain.model.SetList
 import setlist.shea.domain.model.Song
 import javax.inject.Inject
 
@@ -23,11 +25,17 @@ class SetListInteractor @Inject constructor(songDao: SongDao, setListDao: SetLis
     private val writer : Writer = writer
     private val sharedPrefs : SharedPreferences = sharedPreferences
 
+    fun addSetList(list: SetList) : Completable {
+        return Completable.defer {
+            Completable.create {  setListDao.insertSetList(list) }
+        }
+    }
+
     fun getCurrentSetList() : String? {
         return sharedPrefs.getString(CURRENT_SET_LIST, null)
     }
 
-    fun getSetList(currentSetList: String) : Flowable<List<Song>> {
-        return songDao.getSetList(currentSetList)
+    fun getSongsFromSetList(currentSetList: SetList) : Flowable<List<Song>> {
+        return songDao.getSetList(currentSetList.listName)
     }
 }

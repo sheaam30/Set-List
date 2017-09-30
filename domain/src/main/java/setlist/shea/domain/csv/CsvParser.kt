@@ -14,7 +14,7 @@ class CsvParser : Parser {
 
     override fun readFile(inputStream: InputStream?) : List<Song> {
 
-        var csvReader = CSVReader(InputStreamReader(inputStream))
+        val csvReader = CSVReader(InputStreamReader(inputStream))
 
         val records = csvReader.readAll()
         val songs = ArrayList<Song>()
@@ -23,7 +23,7 @@ class CsvParser : Parser {
 
         while (iterator.hasNext()) {
             val record = iterator.next()
-            val emp = Song(record[0], record[1], record[2].toBoolean(), record[3], SetList(record[4]))
+            val emp = Song(record[0], record[1], false, record[3], SetList(record[4]))
             songs.add(emp)
         }
         return ArrayList(songs)

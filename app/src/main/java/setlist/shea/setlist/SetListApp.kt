@@ -10,6 +10,10 @@ import setlist.shea.domain.di.RoomModule
 import setlist.shea.setlist.di.ApplicationModule
 import setlist.shea.setlist.di.DaggerApplicationComponent
 import javax.inject.Inject
+import timber.log.Timber
+import timber.log.Timber.DebugTree
+
+
 
 
 
@@ -36,6 +40,12 @@ class SetListApp : Application(), HasActivityInjector {
                 .applicationModule(ApplicationModule())
                 .build()
                 .inject(this)
+
+        if (BuildConfig.DEBUG) {
+            Timber.plant(DebugTree())
+        } else {
+            //TODO
+        }
     }
 
     override fun activityInjector(): AndroidInjector<Activity> {

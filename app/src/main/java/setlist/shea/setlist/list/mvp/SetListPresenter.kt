@@ -1,4 +1,4 @@
-package setlist.shea.setlist.list
+package setlist.shea.setlist.list.mvp
 
 import android.os.Bundle
 import com.shea.mvp.presenter.BasePresenter

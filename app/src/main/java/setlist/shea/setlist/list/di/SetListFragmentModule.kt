@@ -9,6 +9,10 @@ import setlist.shea.domain.csv.Writer
 import setlist.shea.domain.db.SetListDao
 import setlist.shea.domain.db.SongDao
 import setlist.shea.setlist.list.*
+import setlist.shea.setlist.list.mvp.SetListInteractor
+import setlist.shea.setlist.list.mvp.SetListInterface
+import setlist.shea.setlist.list.mvp.SetListPresenter
+import setlist.shea.setlist.list.mvp.SetListView
 
 /**
  * Created by Adam on 8/28/2017.

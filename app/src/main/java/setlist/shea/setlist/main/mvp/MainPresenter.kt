@@ -1,4 +1,4 @@
-package setlist.shea.setlist.main
+package setlist.shea.setlist.main.mvp
 
 import com.shea.mvp.presenter.BasePresenter
 import io.reactivex.android.schedulers.AndroidSchedulers

@@ -8,6 +8,7 @@ import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
 import setlist.shea.setlist.R
+import setlist.shea.setlist.main.mvp.MainInterface
 import javax.inject.Inject
 
 open class MainActivity : com.shea.mvp.activity.BaseActivity<MainInterface.MainPresenterInterface>(), HasSupportFragmentInjector {

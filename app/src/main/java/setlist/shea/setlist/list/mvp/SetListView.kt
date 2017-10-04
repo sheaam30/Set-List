@@ -1,4 +1,4 @@
-package setlist.shea.setlist.list
+package setlist.shea.setlist.list.mvp
 
 import android.content.DialogInterface
 import android.os.Bundle
@@ -15,6 +15,7 @@ import io.reactivex.schedulers.Schedulers
 import setlist.shea.domain.model.SetList
 import setlist.shea.domain.model.Song
 import setlist.shea.setlist.R
+import setlist.shea.setlist.list.RecyclerViewAdapter
 
 /**
  * Created by Adam on 8/28/2017.
@@ -60,8 +61,7 @@ open class SetListView(activity: BaseActivity<*>?) : BaseView<SetListInterface.L
                     { _, _ -> presenterInterface?.addSetList(SetList(editText.text.toString()))}))
                 .setNegativeButton(context.getString(R.string.cancel), (DialogInterface.OnClickListener
                     { _, _ ->  }))
-                .create()
-
+                .show()
     }
 
     override fun showSetList(setList: Flowable<List<Song>>) {

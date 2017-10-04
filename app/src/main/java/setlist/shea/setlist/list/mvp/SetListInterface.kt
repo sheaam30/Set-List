@@ -1,4 +1,4 @@
-package setlist.shea.setlist.list
+package setlist.shea.setlist.list.mvp
 
 import com.shea.mvp.presenter.BaseInterface
 import io.reactivex.Flowable

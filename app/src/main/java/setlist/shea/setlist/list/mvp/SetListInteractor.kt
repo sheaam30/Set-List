@@ -1,4 +1,4 @@
-package setlist.shea.setlist.list
+package setlist.shea.setlist.list.mvp
 
 import android.content.SharedPreferences
 import com.shea.mvp.interactor.BaseInteractor

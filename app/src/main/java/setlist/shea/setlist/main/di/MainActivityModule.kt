@@ -4,6 +4,10 @@ import dagger.Module
 import dagger.Provides
 import setlist.shea.domain.db.SetListDao
 import setlist.shea.setlist.main.*
+import setlist.shea.setlist.main.mvp.MainInteractor
+import setlist.shea.setlist.main.mvp.MainInterface
+import setlist.shea.setlist.main.mvp.MainPresenter
+import setlist.shea.setlist.main.mvp.MainView
 
 @Module
 class MainActivityModule {

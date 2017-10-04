@@ -1,4 +1,4 @@
-package setlist.shea.setlist.main
+package setlist.shea.setlist.main.mvp
 
 import com.shea.mvp.presenter.BaseInterface
 import setlist.shea.domain.model.SetList

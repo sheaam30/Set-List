@@ -1,10 +1,14 @@
 package setlist.shea.setlist.list
 
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import com.shea.mvp.fragment.BaseFragment
 import dagger.android.support.AndroidSupportInjection
 import setlist.shea.domain.model.SetList
 import setlist.shea.setlist.R
+import setlist.shea.setlist.list.mvp.SetListInterface
 import javax.inject.Inject
 
 
@@ -17,12 +21,17 @@ class SetListFragment : BaseFragment<SetListInterface.ListPresenterInterface>() 
     @Inject
     lateinit var setListPresenterInterface: SetListInterface.ListPresenterInterface
 
-    init {
+    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val setListTitle = arguments?.get(SONGS_KEY)
         if (setListTitle != null && (setListTitle as String).isNotEmpty()) {
             setListPresenterInterface.loadSongsFromSetList(SetList(setListTitle))
         }
+
+        return super.onCreateView(inflater, container, savedInstanceState)
     }
+
+    override val layoutId: Int
+        get() = R.layout.fragment_list
 
     override fun injectDependencies() {
         AndroidSupportInjection.inject(this)
@@ -47,7 +56,4 @@ class SetListFragment : BaseFragment<SetListInterface.ListPresenterInterface>() 
     override fun getPresenter(): SetListInterface.ListPresenterInterface {
         return setListPresenterInterface
     }
-
-    override val layoutId: Int
-        get() = R.layout.fragment_list
 }

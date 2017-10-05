@@ -1,9 +1,8 @@
-package setlist.shea.setlist.list.songs_list
+package setlist.shea.setlist.list.adapter
 
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.RecyclerView.ViewHolder
 import android.support.v7.widget.helper.ItemTouchHelper
-import setlist.shea.setlist.list.songs_list.ItemTouchHelperAdapter
 
 
 /**

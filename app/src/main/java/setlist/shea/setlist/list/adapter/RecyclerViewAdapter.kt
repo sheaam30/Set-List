@@ -1,13 +1,11 @@
-package setlist.shea.setlist.list.songs_list
+package setlist.shea.setlist.list.adapter
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import setlist.shea.domain.model.Song
 import setlist.shea.setlist.R
-import timber.log.Timber
 
 
 /**
@@ -17,11 +15,11 @@ class RecyclerViewAdapter(val clickListener: View.OnClickListener) : RecyclerVie
 
     var songs: List<Song> = ArrayList()
 
-    val VIEW_TYPE_SONG = 1
-    val VIEW_TYPE_ADD_SONG = 2
+    private val VIEW_TYPE_SONG = 1
+    private val VIEW_TYPE_ADD_SONG = 2
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
-        if (holder is ISongViewHolder && songs.size > position) {
+        if (holder is SongViewHolder && songs.size > position) {
             holder.bind(songs[position])
         }
     }

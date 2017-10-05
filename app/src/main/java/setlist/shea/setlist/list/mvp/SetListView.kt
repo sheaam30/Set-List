@@ -16,8 +16,8 @@ import io.reactivex.schedulers.Schedulers
 import setlist.shea.domain.model.SetList
 import setlist.shea.domain.model.Song
 import setlist.shea.setlist.R
+import setlist.shea.setlist.list.adapter.RecyclerViewAdapter
 import setlist.shea.setlist.list.add_song_dialog.AddSongDialog
-import setlist.shea.setlist.list.songs_list.RecyclerViewAdapter
 
 /**
  * Created by Adam on 8/28/2017.
@@ -32,18 +32,17 @@ open class SetListView(activity: BaseActivity<*>?) : BaseView<SetListInterface.L
     override fun onSetupViews(savedInstanceState: Bundle?) {
         recyclerView = bind(R.id.recyclerview)
         adapter = RecyclerViewAdapter(this)
-        recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.adapter = adapter
 
         viewSwitcher = bind(R.id.view_switcher)
         fab = bind(R.id.fab)
-        fab.setOnClickListener { v -> presenterInterface?.onAddListFabClicked() }
+        fab.setOnClickListener { _ -> presenterInterface?.onAddListFabClicked() }
     }
 
     override fun onClick(p0: View?) {
         //Show Add Song Dialog
-        val addSongDialog = AddSongDialog(context)
-        addSongDialog.setContentView(R.layout.dialog_add_song)
+        var addSongDialog = AddSongDialog(context)
         addSongDialog.show()
     }
 

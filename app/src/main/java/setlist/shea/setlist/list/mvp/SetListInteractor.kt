@@ -36,6 +36,13 @@ class SetListInteractor @Inject constructor(songDao: SongDao, setListDao: SetLis
     }
 
     fun getSongsFromSetList(currentSetList: SetList) : Flowable<List<Song>> {
+//        var songList : MutableList<Song> = ArrayList<Song>()
+//        songList.add(Song("Test", "test", false, "Genre", SetList("List:")))
+//        songList.add(Song("Test", "test", false, "Genre", SetList("List:")))
+//        songList.add(Song("Test", "test", false, "Genre", SetList("List:")))
+//        songList.add(Song("Test", "test", false, "Genre", SetList("List:")))
+//        songList.add(Song("Test", "test", false, "Genre", SetList("List:")))
+//        return Flowable.fromArray(songList)
         return songDao.getSetList(currentSetList.listName)
     }
 }

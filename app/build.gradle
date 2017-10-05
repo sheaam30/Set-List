@@ -9,7 +9,7 @@ kapt {
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "25.0.3"
+    buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "shea.setlist"
         minSdkVersion 19

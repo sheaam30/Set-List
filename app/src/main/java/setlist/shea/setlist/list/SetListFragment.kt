@@ -21,14 +21,14 @@ class SetListFragment : BaseFragment<SetListInterface.ListPresenterInterface>() 
     @Inject
     lateinit var setListPresenterInterface: SetListInterface.ListPresenterInterface
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         val setListTitle = arguments?.get(SONGS_KEY)
         if (setListTitle != null && (setListTitle as String).isNotEmpty()) {
             setListPresenterInterface.loadSongsFromSetList(SetList(setListTitle))
         }
-
-        return super.onCreateView(inflater, container, savedInstanceState)
     }
+
 
     override val layoutId: Int
         get() = R.layout.fragment_list

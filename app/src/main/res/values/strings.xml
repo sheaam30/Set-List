@@ -10,4 +10,7 @@
     <string name="add_set_list">Add Set List</string>
     <string name="load">Load</string>
     <string name="save">Save</string>
+    <string name="genre">Genre</string>
+    <string name="artist">Artist</string>
+    <string name="song_name">Song Name</string>
 </resources>

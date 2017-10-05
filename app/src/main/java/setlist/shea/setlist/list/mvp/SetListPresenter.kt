@@ -48,7 +48,9 @@ class SetListPresenter constructor(setListInteractor: SetListInteractor, view: S
         interactor.getSongsFromSetList(setList)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ songs -> view.displaySongs(songs) },
+                .subscribe({ songs ->
+                    view.showListState()
+                    view.displaySongs(songs) },
                         { t -> Timber.e(t) })
     }
 

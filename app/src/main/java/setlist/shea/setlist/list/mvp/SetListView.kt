@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.View
 import android.widget.EditText
 import android.widget.ViewSwitcher
 import com.shea.mvp.activity.BaseActivity
@@ -15,12 +16,13 @@ import io.reactivex.schedulers.Schedulers
 import setlist.shea.domain.model.SetList
 import setlist.shea.domain.model.Song
 import setlist.shea.setlist.R
-import setlist.shea.setlist.list.RecyclerViewAdapter
+import setlist.shea.setlist.list.add_song_dialog.AddSongDialog
+import setlist.shea.setlist.list.songs_list.RecyclerViewAdapter
 
 /**
  * Created by Adam on 8/28/2017.
  */
-open class SetListView(activity: BaseActivity<*>?) : BaseView<SetListInterface.ListPresenterInterface>(activity), SetListInterface.ListViewInterface {
+open class SetListView(activity: BaseActivity<*>?) : BaseView<SetListInterface.ListPresenterInterface>(activity), SetListInterface.ListViewInterface, View.OnClickListener {
 
     lateinit var recyclerView : RecyclerView
     lateinit var viewSwitcher : ViewSwitcher
@@ -29,13 +31,20 @@ open class SetListView(activity: BaseActivity<*>?) : BaseView<SetListInterface.L
 
     override fun onSetupViews(savedInstanceState: Bundle?) {
         recyclerView = bind(R.id.recyclerview)
-        adapter = RecyclerViewAdapter()
+        adapter = RecyclerViewAdapter(this)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(context)
 
         viewSwitcher = bind(R.id.view_switcher)
         fab = bind(R.id.fab)
         fab.setOnClickListener { v -> presenterInterface?.onAddListFabClicked() }
+    }
+
+    override fun onClick(p0: View?) {
+        //Show Add Song Dialog
+        val addSongDialog = AddSongDialog(context)
+        addSongDialog.setContentView(R.layout.dialog_add_song)
+        addSongDialog.show()
     }
 
     override fun showEmptyState() {

@@ -1,4 +1,4 @@
-package setlist.shea.setlist.list
+package setlist.shea.setlist.list.songs_list
 
 import android.support.v7.widget.RecyclerView
 

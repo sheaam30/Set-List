@@ -3,6 +3,7 @@ package setlist.shea.setlist.main
 import android.support.v4.app.Fragment
 import android.view.Menu
 import android.view.MenuItem
+import com.shea.mvp.activity.BaseActivity
 import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
@@ -11,7 +12,7 @@ import setlist.shea.setlist.R
 import setlist.shea.setlist.main.mvp.MainContract
 import javax.inject.Inject
 
-open class MainActivity : com.shea.mvp.activity.BaseActivity<MainContract.MainPresenterInterface>(), HasSupportFragmentInjector {
+open class MainActivity : BaseActivity<MainContract.MainPresenterInterface>(), HasSupportFragmentInjector {
 
     @Inject
     lateinit var mainPresenterContract: MainContract.MainPresenterInterface

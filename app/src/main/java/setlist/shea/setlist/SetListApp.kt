@@ -1,45 +1,25 @@
 package setlist.shea.setlist
 
-import android.app.Activity
-import android.app.Application
 import android.content.Context
 import dagger.android.AndroidInjector
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasActivityInjector
+import dagger.android.DaggerApplication
 import setlist.shea.domain.di.RoomModule
 import setlist.shea.setlist.di.ApplicationModule
 import setlist.shea.setlist.di.DaggerApplicationComponent
-import javax.inject.Inject
 import timber.log.Timber
 import timber.log.Timber.DebugTree
-
-
-
-
-
 
 /**
  * Created by Adam on 6/4/2017.
  */
-class SetListApp : Application(), HasActivityInjector {
-
-    @Inject
-    lateinit var activityDispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
+class SetListApp : DaggerApplication() {
 
     var context: Context? = null
-
 
     override fun onCreate() {
         super.onCreate()
         context = applicationContext
 
-        DaggerApplicationComponent
-                .builder()
-                .application(this)
-                .room(RoomModule())
-                .applicationModule(ApplicationModule())
-                .build()
-                .inject(this)
 
         if (BuildConfig.DEBUG) {
             Timber.plant(DebugTree())
@@ -48,7 +28,12 @@ class SetListApp : Application(), HasActivityInjector {
         }
     }
 
-    override fun activityInjector(): AndroidInjector<Activity> {
-        return activityDispatchingAndroidInjector
+    override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
+        return DaggerApplicationComponent
+                .builder()
+                .application(this)
+                .room(RoomModule())
+                .applicationModule(ApplicationModule())
+                .build()
     }
 }

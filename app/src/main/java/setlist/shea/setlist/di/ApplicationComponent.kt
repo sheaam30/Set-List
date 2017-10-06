@@ -3,15 +3,18 @@ package setlist.shea.setlist.di
 import android.app.Application
 import dagger.BindsInstance
 import dagger.Component
+import dagger.android.AndroidInjector
+import dagger.android.DaggerApplication
+import dagger.android.support.AndroidSupportInjectionModule
 import setlist.shea.domain.di.RoomModule
-import setlist.shea.setlist.SetListApp
 import javax.inject.Singleton
 
 @Singleton
 @Component(modules = arrayOf(RoomModule::class,
         ApplicationModule::class,
-        ActivityFragmentProvider::class))
-interface ApplicationComponent {
+        ActivityFragmentProvider::class,
+        AndroidSupportInjectionModule::class))
+interface ApplicationComponent : AndroidInjector<DaggerApplication> {
 
     @Component.Builder
     interface Builder {
@@ -20,6 +23,4 @@ interface ApplicationComponent {
         @BindsInstance fun applicationModule(applicationModule: ApplicationModule): Builder
         fun build(): ApplicationComponent
     }
-
-    fun inject(setListApp: SetListApp)
 }

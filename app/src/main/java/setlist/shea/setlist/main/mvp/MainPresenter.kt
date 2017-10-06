@@ -24,6 +24,7 @@ class MainPresenter constructor(interactor: MainInteractor, view: MainInterface.
     }
 
     override fun loadSetList(setList: SetList) {
+        interactor.setCurrentSetList(setList.listName)
         view.showList(setList)
     }
 

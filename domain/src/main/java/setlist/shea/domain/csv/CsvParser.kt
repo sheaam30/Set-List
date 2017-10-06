@@ -23,7 +23,7 @@ class CsvParser : Parser {
 
         while (iterator.hasNext()) {
             val record = iterator.next()
-            val emp = Song(record[0], record[1], false, record[3], SetList(record[4]))
+            val emp = Song(record[0], record[1], record[3], SetList(record[4]))
             songs.add(emp)
         }
         return ArrayList(songs)

@@ -6,6 +6,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import setlist.shea.domain.model.SetList
+import setlist.shea.domain.model.Song
 import timber.log.Timber
 
 /**
@@ -52,6 +53,13 @@ class SetListPresenter constructor(setListInteractor: SetListInteractor, view: S
                     view.showListState()
                     view.displaySongs(songs) },
                         { t -> Timber.e(t) })
+    }
+
+    override fun songAdded(songName: String, songArtist: String, songGenre: String) {
+        interactor.addSongToSetList(Song(songName, songArtist, songGenre, SetList(interactor.getCurrentSetList()!!)))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe( { }, { t -> Timber.e(t)})
     }
 
     override fun onPause() {

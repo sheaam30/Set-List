@@ -17,7 +17,7 @@ import javax.inject.Inject
  */
 class SetListInteractor @Inject constructor(songDao: SongDao, setListDao: SetListDao, parser: Parser, writer: Writer, sharedPreferences: SharedPreferences): BaseInteractor() {
 
-    private val CURRENT_SET_LIST = "currentSetList"
+    val CURRENT_SET_LIST = "currentSetList"
 
     private val songDao : SongDao = songDao
     private val setListDao : SetListDao = setListDao
@@ -31,18 +31,17 @@ class SetListInteractor @Inject constructor(songDao: SongDao, setListDao: SetLis
         }
     }
 
+    fun addSongToSetList(song : Song) : Completable {
+        return Completable.defer {
+            Completable.create { songDao.insertSong(song) }
+        }
+    }
+
     fun getCurrentSetList() : String? {
         return sharedPrefs.getString(CURRENT_SET_LIST, null)
     }
 
     fun getSongsFromSetList(currentSetList: SetList) : Flowable<List<Song>> {
-//        var songList : MutableList<Song> = ArrayList<Song>()
-//        songList.add(Song("Test", "test", false, "Genre", SetList("List:")))
-//        songList.add(Song("Test", "test", false, "Genre", SetList("List:")))
-//        songList.add(Song("Test", "test", false, "Genre", SetList("List:")))
-//        songList.add(Song("Test", "test", false, "Genre", SetList("List:")))
-//        songList.add(Song("Test", "test", false, "Genre", SetList("List:")))
-//        return Flowable.fromArray(songList)
         return songDao.getSetList(currentSetList.listName)
     }
 }

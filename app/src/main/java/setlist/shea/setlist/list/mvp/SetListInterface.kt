@@ -23,5 +23,6 @@ interface SetListInterface {
         fun onAddListFabClicked()
         fun addSetList(setList : SetList)
         fun loadSongsFromSetList(setList: SetList)
+        fun songAdded(songName : String, songArtist : String, songGenre : String)
     }
 }

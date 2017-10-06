@@ -1,5 +1,6 @@
 package setlist.shea.setlist.main.di
 
+import android.content.SharedPreferences
 import dagger.Module
 import dagger.Provides
 import setlist.shea.domain.db.SetListDao
@@ -18,8 +19,8 @@ class MainActivityModule {
     }
 
     @Provides
-    fun provideMainInteractor(setListDao: SetListDao) : MainInteractor {
-        return MainInteractor(setListDao)
+    fun provideMainInteractor(setListDao: SetListDao, sharedPreferences: SharedPreferences) : MainInteractor {
+        return MainInteractor(setListDao, sharedPreferences)
     }
 
     @Provides

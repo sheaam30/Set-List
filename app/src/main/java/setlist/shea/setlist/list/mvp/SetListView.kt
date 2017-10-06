@@ -17,12 +17,15 @@ import setlist.shea.domain.model.SetList
 import setlist.shea.domain.model.Song
 import setlist.shea.setlist.R
 import setlist.shea.setlist.list.adapter.RecyclerViewAdapter
+import setlist.shea.setlist.list.add_song_dialog.AddSongCallback
 import setlist.shea.setlist.list.add_song_dialog.AddSongDialog
 
 /**
  * Created by Adam on 8/28/2017.
  */
-open class SetListView(activity: BaseActivity<*>?) : BaseView<SetListInterface.ListPresenterInterface>(activity), SetListInterface.ListViewInterface, View.OnClickListener {
+open class SetListView(activity: BaseActivity<*>?) : BaseView<SetListInterface.ListPresenterInterface>(activity),
+        SetListInterface.ListViewInterface,
+        View.OnClickListener {
 
     lateinit var recyclerView : RecyclerView
     lateinit var viewSwitcher : ViewSwitcher
@@ -41,8 +44,11 @@ open class SetListView(activity: BaseActivity<*>?) : BaseView<SetListInterface.L
     }
 
     override fun onClick(p0: View?) {
-        //Show Add Song Dialog
-        var addSongDialog = AddSongDialog(context)
+        val addSongDialog = AddSongDialog(context, object : AddSongCallback() {
+            override fun addSongClicked(songName: String, songArtist: String, songGenre: String) {
+                presenterInterface?.songAdded(songName, songArtist, songGenre)
+            }
+        })
         addSongDialog.show()
     }
 

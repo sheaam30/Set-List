@@ -13,7 +13,8 @@ class MainPresenter constructor(interactor: MainInteractor, view: MainInterface.
 
     override fun onCreate() {
         super.onCreate()
-        view.showList(null)
+        val setList = interactor.getCurrentSetList()
+        view.showList(setList)
     }
 
     override fun loadSetListTitles() {

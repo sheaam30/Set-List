@@ -17,13 +17,13 @@ import javax.inject.Inject
  */
 class SetListInteractor @Inject constructor(songDao: SongDao, setListDao: SetListDao, parser: Parser, writer: Writer, sharedPreferences: SharedPreferences): BaseInteractor() {
 
-    val CURRENT_SET_LIST = "currentSetList"
-
     private val songDao : SongDao = songDao
     private val setListDao : SetListDao = setListDao
     private val parser : Parser = parser
     private val writer : Writer = writer
     private val sharedPrefs : SharedPreferences = sharedPreferences
+
+    var setList : SetList? = null
 
     fun addSetList(list: SetList) : Completable {
         return Completable.defer {
@@ -35,10 +35,6 @@ class SetListInteractor @Inject constructor(songDao: SongDao, setListDao: SetLis
         return Completable.defer {
             Completable.create { songDao.insertSong(song) }
         }
-    }
-
-    fun getCurrentSetList() : String? {
-        return sharedPrefs.getString(CURRENT_SET_LIST, null)
     }
 
     fun getSongsFromSetList(currentSetList: SetList) : Flowable<List<Song>> {

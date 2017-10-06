@@ -30,13 +30,12 @@ open class MainView(activity: BaseActivity<*>?) : BaseView<MainInterface.MainPre
         getFragmentManager().beginTransaction()
                 .replace(R.id.content, setListFragment)
                 .commit()
+
+        toolbar.title = setList?.listName
     }
 
     override fun showLoadDialog(setList: List<SetList>) {
         var chosen = -1
-        dialogBuilder
-                .setTitle("Load SetList")
-
         val setListArray: Array<String?> = arrayOfNulls(setList.size)
 
         for (i in 0 until setList.size) {
@@ -44,6 +43,7 @@ open class MainView(activity: BaseActivity<*>?) : BaseView<MainInterface.MainPre
         }
 
         dialogBuilder
+                .setTitle(context.getString(R.string.load_setlist))
                 .setSingleChoiceItems(setListArray, -1) { dialog, item ->
                     chosen = item
                 }

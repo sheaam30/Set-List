@@ -13,6 +13,8 @@ import javax.inject.Inject
  */
 class MainInteractor @Inject constructor(val setListDao: SetListDao, val preferences: SharedPreferences) : BaseInteractor() {
 
+    val CURRENT_SET_LIST = "currentSetList"
+
 //    fun importSetList(path : String) : io.reactivex.Single<List<Song>> {
 //        return io.reactivex.Single.defer {
 //            val inputStream : java.io.InputStream? = SetListApp.Companion.context?.assets?.open(path)
@@ -35,4 +37,7 @@ class MainInteractor @Inject constructor(val setListDao: SetListDao, val prefere
     fun setCurrentSetList(setList: String) {
         preferences.edit().putString("currentSetList", setList).apply()
     }
+
+    fun getCurrentSetList() : SetList = SetList(preferences.getString(CURRENT_SET_LIST, null))
+
 }

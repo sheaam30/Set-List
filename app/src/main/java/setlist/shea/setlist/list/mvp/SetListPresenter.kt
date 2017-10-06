@@ -17,12 +17,12 @@ class SetListPresenter constructor(setListInteractor: SetListInteractor, view: S
     var disposables : CompositeDisposable = CompositeDisposable()
 
     override fun onSetupViews(savedInstanceState: Bundle?) {
-        val currentSetList = interactor.getCurrentSetList()
-        if (currentSetList.isNullOrEmpty()) {
+        val currentSetList = interactor.setList
+        if (currentSetList == null) {
             view.showEmptyState()
         } else {
             view.showListState()
-            disposables.add(interactor.getSongsFromSetList(SetList(currentSetList!!))
+            disposables.add(interactor.getSongsFromSetList(currentSetList)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({ songs ->
@@ -46,6 +46,7 @@ class SetListPresenter constructor(setListInteractor: SetListInteractor, view: S
     }
 
     override fun loadSongsFromSetList(setList: SetList) {
+        interactor.setList = setList
         interactor.getSongsFromSetList(setList)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -56,7 +57,7 @@ class SetListPresenter constructor(setListInteractor: SetListInteractor, view: S
     }
 
     override fun songAdded(songName: String, songArtist: String, songGenre: String) {
-        interactor.addSongToSetList(Song(songName, songArtist, songGenre, SetList(interactor.getCurrentSetList()!!)))
+        interactor.addSongToSetList(Song(songName, songArtist, songGenre, interactor.setList!!))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe( { }, { t -> Timber.e(t)})

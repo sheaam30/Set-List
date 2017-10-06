@@ -8,13 +8,13 @@ import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
 import setlist.shea.setlist.R
-import setlist.shea.setlist.main.mvp.MainInterface
+import setlist.shea.setlist.main.mvp.MainContract
 import javax.inject.Inject
 
-open class MainActivity : com.shea.mvp.activity.BaseActivity<MainInterface.MainPresenterInterface>(), HasSupportFragmentInjector {
+open class MainActivity : com.shea.mvp.activity.BaseActivity<MainContract.MainPresenterInterface>(), HasSupportFragmentInjector {
 
     @Inject
-    lateinit var mainPresenterInterface: MainInterface.MainPresenterInterface
+    lateinit var mainPresenterContract: MainContract.MainPresenterInterface
 
     @Inject
     lateinit var fragmentDispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
@@ -23,8 +23,8 @@ open class MainActivity : com.shea.mvp.activity.BaseActivity<MainInterface.MainP
         AndroidInjection.inject(this)
     }
 
-    override fun getPresenter(): MainInterface.MainPresenterInterface {
-        return mainPresenterInterface
+    override fun getPresenter(): MainContract.MainPresenterInterface {
+        return mainPresenterContract
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -34,7 +34,7 @@ open class MainActivity : com.shea.mvp.activity.BaseActivity<MainInterface.MainP
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
-            R.id.load -> { mainPresenterInterface.loadSetListTitles()
+            R.id.load -> { mainPresenterContract.loadSetListTitles()
                 return true
             }
         }

@@ -5,7 +5,6 @@ import com.shea.mvp.interactor.BaseInteractor
 import io.reactivex.Single
 import setlist.shea.domain.db.SetListDao
 import setlist.shea.domain.model.SetList
-import setlist.shea.setlist.list.mvp.SetListInteractor
 import javax.inject.Inject
 
 /**
@@ -38,6 +37,10 @@ class MainInteractor @Inject constructor(val setListDao: SetListDao, val prefere
         preferences.edit().putString("currentSetList", setList).apply()
     }
 
-    fun getCurrentSetList() : SetList = SetList(preferences.getString(CURRENT_SET_LIST, null))
+    fun getCurrentSetList() : SetList? {
+        val setList = preferences.getString(CURRENT_SET_LIST, null)
+        if (setList.isNullOrEmpty()) return null
+        return SetList(setList)
+    }
 
 }

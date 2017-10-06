@@ -1,5 +1,7 @@
 package setlist.shea.setlist.main.mvp
 
+import android.content.DialogInterface
+import android.support.v7.app.AlertDialog
 import com.shea.mvp.presenter.BasePresenter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -9,7 +11,7 @@ import setlist.shea.domain.model.SetList
 /**
  * Created by Adam on 6/3/2017.
  */
-class MainPresenter constructor(interactor: MainInteractor, view: MainInterface.MainViewInterface) : BasePresenter<MainInteractor, MainInterface.MainViewInterface>(interactor, view), MainInterface.MainPresenterInterface {
+class MainPresenter constructor(interactor: MainInteractor, view: MainContract.MainViewInterface) : BasePresenter<MainInteractor, MainContract.MainViewInterface>(interactor, view), MainContract.MainPresenterInterface {
 
     override fun onCreate() {
         super.onCreate()
@@ -27,6 +29,11 @@ class MainPresenter constructor(interactor: MainInteractor, view: MainInterface.
     override fun loadSetList(setList: SetList) {
         interactor.setCurrentSetList(setList.listName)
         view.showList(setList)
+    }
+
+    override fun getAddSetListClickListener(setListArray: Array<String?>): DialogInterface.OnClickListener {
+        return DialogInterface.OnClickListener { dialog, _ ->
+            loadSetList(SetList(setListArray[(dialog as AlertDialog).listView.checkedItemPosition]!!)) }
     }
 
     //

@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.view.View
 import android.widget.EditText
 import android.widget.ViewSwitcher
 import com.shea.mvp.activity.BaseActivity
@@ -17,15 +16,11 @@ import setlist.shea.domain.model.SetList
 import setlist.shea.domain.model.Song
 import setlist.shea.setlist.R
 import setlist.shea.setlist.list.adapter.RecyclerViewAdapter
-import setlist.shea.setlist.list.add_song_dialog.AddSongCallback
-import setlist.shea.setlist.list.add_song_dialog.AddSongDialog
 
 /**
  * Created by Adam on 8/28/2017.
  */
-open class SetListView(activity: BaseActivity<*>?) : BaseView<SetListInterface.ListPresenterInterface>(activity),
-        SetListInterface.ListViewInterface,
-        View.OnClickListener {
+open class SetListView(activity: BaseActivity<*>?) : BaseView<SetListContract.ListPresenterInterface>(activity), SetListContract.ListViewInterface {
 
     lateinit var recyclerView : RecyclerView
     lateinit var viewSwitcher : ViewSwitcher
@@ -34,22 +29,13 @@ open class SetListView(activity: BaseActivity<*>?) : BaseView<SetListInterface.L
 
     override fun onSetupViews(savedInstanceState: Bundle?) {
         recyclerView = bind(R.id.recyclerview)
-        adapter = RecyclerViewAdapter(this)
+        adapter = RecyclerViewAdapter(presenterInterface?.getListActionListener())
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = adapter
 
         viewSwitcher = bind(R.id.view_switcher)
         fab = bind(R.id.fab)
         fab.setOnClickListener { _ -> presenterInterface?.onAddListFabClicked() }
-    }
-
-    override fun onClick(p0: View?) {
-        val addSongDialog = AddSongDialog(context, object : AddSongCallback() {
-            override fun addSongClicked(songName: String, songArtist: String, songGenre: String) {
-                presenterInterface?.songAdded(songName, songArtist, songGenre)
-            }
-        })
-        addSongDialog.show()
     }
 
     override fun showEmptyState() {

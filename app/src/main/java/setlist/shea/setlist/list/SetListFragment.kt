@@ -1,14 +1,11 @@
 package setlist.shea.setlist.list
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import com.shea.mvp.fragment.BaseFragment
 import dagger.android.support.AndroidSupportInjection
 import setlist.shea.domain.model.SetList
 import setlist.shea.setlist.R
-import setlist.shea.setlist.list.mvp.SetListInterface
+import setlist.shea.setlist.list.mvp.SetListContract
 import javax.inject.Inject
 
 
@@ -16,16 +13,16 @@ import javax.inject.Inject
 /**
  * Created by Adam on 8/28/2017.
  */
-class SetListFragment : BaseFragment<SetListInterface.ListPresenterInterface>() {
+class SetListFragment : BaseFragment<SetListContract.ListPresenterInterface>() {
 
     @Inject
-    lateinit var setListPresenterInterface: SetListInterface.ListPresenterInterface
+    lateinit var setListPresenterContract: SetListContract.ListPresenterInterface
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val setListTitle = arguments?.get(SONGS_KEY)
         if (setListTitle != null && (setListTitle as String).isNotEmpty()) {
-            setListPresenterInterface.loadSongsFromSetList(SetList(setListTitle))
+            setListPresenterContract.loadSongsFromSetList(SetList(setListTitle))
         }
     }
 
@@ -53,7 +50,7 @@ class SetListFragment : BaseFragment<SetListInterface.ListPresenterInterface>() 
         }
     }
 
-    override fun getPresenter(): SetListInterface.ListPresenterInterface {
-        return setListPresenterInterface
+    override fun getPresenter(): SetListContract.ListPresenterInterface {
+        return setListPresenterContract
     }
 }

@@ -8,9 +8,9 @@ import setlist.shea.domain.csv.Parser
 import setlist.shea.domain.csv.Writer
 import setlist.shea.domain.db.SetListDao
 import setlist.shea.domain.db.SongDao
-import setlist.shea.setlist.list.*
+import setlist.shea.setlist.list.SetListFragment
+import setlist.shea.setlist.list.mvp.SetListContract
 import setlist.shea.setlist.list.mvp.SetListInteractor
-import setlist.shea.setlist.list.mvp.SetListInterface
 import setlist.shea.setlist.list.mvp.SetListPresenter
 import setlist.shea.setlist.list.mvp.SetListView
 
@@ -21,8 +21,8 @@ import setlist.shea.setlist.list.mvp.SetListView
 class SetListFragmentModule {
 
     @Provides
-    fun provideListPresenter(setListViewInterface: SetListInterface.ListViewInterface, setListInteractor: SetListInteractor) : SetListInterface.ListPresenterInterface {
-        return SetListPresenter(setListInteractor, setListViewInterface)
+    fun provideListPresenter(setListViewContract: SetListContract.ListViewInterface, setListInteractor: SetListInteractor) : SetListContract.ListPresenterInterface {
+        return SetListPresenter(setListInteractor, setListViewContract)
     }
 
     @Provides
@@ -31,7 +31,7 @@ class SetListFragmentModule {
     }
 
     @Provides
-    fun provideListView(fragmentSet: SetListFragment) : SetListInterface.ListViewInterface {
+    fun provideListView(fragmentSet: SetListFragment) : SetListContract.ListViewInterface {
         return SetListView(fragmentSet.activity as BaseActivity<*>?)
     }
 }

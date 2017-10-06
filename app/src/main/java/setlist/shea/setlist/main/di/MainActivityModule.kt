@@ -6,7 +6,7 @@ import dagger.Provides
 import setlist.shea.domain.db.SetListDao
 import setlist.shea.setlist.main.*
 import setlist.shea.setlist.main.mvp.MainInteractor
-import setlist.shea.setlist.main.mvp.MainInterface
+import setlist.shea.setlist.main.mvp.MainContract
 import setlist.shea.setlist.main.mvp.MainPresenter
 import setlist.shea.setlist.main.mvp.MainView
 
@@ -14,8 +14,8 @@ import setlist.shea.setlist.main.mvp.MainView
 class MainActivityModule {
 
     @Provides
-    fun provideMainPresenter(mainViewInterface: MainInterface.MainViewInterface, mainInteractor: MainInteractor) : MainInterface.MainPresenterInterface {
-        return MainPresenter(mainInteractor, mainViewInterface)
+    fun provideMainPresenter(mainViewContract: MainContract.MainViewInterface, mainInteractor: MainInteractor) : MainContract.MainPresenterInterface {
+        return MainPresenter(mainInteractor, mainViewContract)
     }
 
     @Provides
@@ -24,7 +24,7 @@ class MainActivityModule {
     }
 
     @Provides
-    fun provideMainView(activity: MainActivity) : MainInterface.MainViewInterface {
+    fun provideMainView(activity: MainActivity) : MainContract.MainViewInterface {
         return MainView(activity)
     }
 }

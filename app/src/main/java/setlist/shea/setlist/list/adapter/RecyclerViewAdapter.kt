@@ -11,7 +11,7 @@ import setlist.shea.setlist.R
 /**
  * Created by Adam on 8/28/2017.
  */
-class RecyclerViewAdapter(val clickListener: View.OnClickListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() , ItemTouchHelperAdapter {
+class RecyclerViewAdapter(val clickListener: View.OnClickListener?) : RecyclerView.Adapter<RecyclerView.ViewHolder>() , ItemTouchHelperAdapter {
 
     var songs: List<Song> = ArrayList()
 
@@ -32,13 +32,15 @@ class RecyclerViewAdapter(val clickListener: View.OnClickListener) : RecyclerVie
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             VIEW_TYPE_SONG -> {
-                val view = LayoutInflater.from(parent?.context).inflate(R.layout.song_list_item, parent, false)
+                val view = LayoutInflater.from(parent?.context).inflate(R.layout.layout_song_list_item, parent, false)
+                val viewHolder = SongViewHolder(view)
+                viewHolder.removeSong.setOnClickListener {  }
                 SongViewHolder(view)
             }
             VIEW_TYPE_ADD_SONG -> {
-                val view = LayoutInflater.from(parent?.context).inflate(R.layout.add_song_list_item, parent, false)
+                val view = LayoutInflater.from(parent?.context).inflate(R.layout.layout_add_song_list_item, parent, false)
                 val viewHolder = AddSongViewHolder(view)
-                viewHolder.addItem?.setOnClickListener(clickListener)
+                viewHolder.addItem.setOnClickListener(clickListener)
                 viewHolder
             }
             else -> throw IllegalArgumentException("")

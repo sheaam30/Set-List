@@ -1,18 +1,21 @@
 package setlist.shea.setlist.list.mvp
 
 import android.os.Bundle
+import android.view.View
 import com.shea.mvp.presenter.BasePresenter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import setlist.shea.domain.model.SetList
 import setlist.shea.domain.model.Song
+import setlist.shea.setlist.list.add_song_dialog.AddSongCallback
+import setlist.shea.setlist.list.add_song_dialog.AddSongDialog
 import timber.log.Timber
 
 /**
  * Created by Adam on 8/28/2017.
  */
-class SetListPresenter constructor(setListInteractor: SetListInteractor, view: SetListInterface.ListViewInterface) : BasePresenter<SetListInteractor, SetListInterface.ListViewInterface>(setListInteractor, view), SetListInterface.ListPresenterInterface {
+class SetListPresenter constructor(setListInteractor: SetListInteractor, view: SetListContract.ListViewInterface) : BasePresenter<SetListInteractor, SetListContract.ListViewInterface>(setListInteractor, view), SetListContract.ListPresenterInterface {
 
     var disposables : CompositeDisposable = CompositeDisposable()
 
@@ -61,6 +64,17 @@ class SetListPresenter constructor(setListInteractor: SetListInteractor, view: S
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe( { }, { t -> Timber.e(t)})
+    }
+
+    override fun getListActionListener(): View.OnClickListener {
+        return View.OnClickListener { view ->
+            val addSongDialog = AddSongDialog(view.context, object : AddSongCallback() {
+                override fun addSongClicked(songName: String, songArtist: String, songGenre: String) {
+                    songAdded(songName, songArtist, songGenre)
+                }
+            })
+            addSongDialog.show()
+        }
     }
 
     override fun onPause() {

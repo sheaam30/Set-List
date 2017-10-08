@@ -4,11 +4,10 @@ import android.content.SharedPreferences
 import dagger.Module
 import dagger.Provides
 import setlist.shea.domain.db.SetListDao
-import setlist.shea.setlist.main.*
-import setlist.shea.setlist.main.mvp.MainRepository
+import setlist.shea.setlist.main.mvp.MainActivity
 import setlist.shea.setlist.main.mvp.MainContract
 import setlist.shea.setlist.main.mvp.MainPresenter
-import setlist.shea.setlist.main.mvp.MainView
+import setlist.shea.setlist.main.mvp.MainRepository
 
 @Module
 class MainActivityModule {
@@ -25,6 +24,7 @@ class MainActivityModule {
 
     @Provides
     fun provideMainView(activity: MainActivity) : MainContract.View {
-        return MainView(activity)
+        return activity
     }
+
 }

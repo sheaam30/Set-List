@@ -11,16 +11,11 @@ import setlist.shea.domain.model.SetList
 /**
  * Created by Adam on 6/3/2017.
  */
-class MainPresenter constructor(var mainRepository: MainRepository, var view: MainContract.View) : MainContract.Presenter {
+class MainPresenter constructor(var mainRepository: MainRepository, override var view: MainContract.View) : MainContract.Presenter {
 
-    override fun onCreate() {
-        super.onCreate()
+    override fun onViewsSetup() {
         val setList = mainRepository.getCurrentSetList()
         view.showList(setList)
-    }
-
-    override fun onSaveState(outState: Bundle) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun loadSetListTitles() {
@@ -38,6 +33,10 @@ class MainPresenter constructor(var mainRepository: MainRepository, var view: Ma
     override fun getAddSetListClickListener(setListArray: Array<String?>): DialogInterface.OnClickListener {
         return DialogInterface.OnClickListener { dialog, _ ->
             loadSetList(SetList(setListArray[(dialog as AlertDialog).listView.checkedItemPosition]!!)) }
+    }
+
+    override fun onSaveState(outState: Bundle) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     //

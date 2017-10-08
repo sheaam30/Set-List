@@ -1,8 +1,9 @@
 package setlist.shea.setlist.list.mvp
 
+import android.arch.lifecycle.Lifecycle
+import android.arch.lifecycle.OnLifecycleEvent
 import android.os.Bundle
 import android.view.View
-import com.shea.mvp.presenter.BasePresenter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -15,7 +16,7 @@ import timber.log.Timber
 /**
  * Created by Adam on 8/28/2017.
  */
-class SetPresenter constructor(var setListRepository: SetListRepository, var view: SetListContract.View) : SetListContract.Presenter {
+class SetPresenter constructor(var setListRepository: SetListRepository, override var view: SetListContract.View) : SetListContract.Presenter {
 
     var disposables : CompositeDisposable = CompositeDisposable()
 
@@ -23,8 +24,7 @@ class SetPresenter constructor(var setListRepository: SetListRepository, var vie
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun onCreate() {
-        super.onCreate()
+    override fun onViewsSetup() {
         val currentSetList = setListRepository.setList
         if (currentSetList == null) {
             view.showEmptyState()
@@ -65,7 +65,7 @@ class SetPresenter constructor(var setListRepository: SetListRepository, var vie
     }
 
     override fun songAdded(songName: String, songArtist: String, songGenre: String) {
-        setListRepository.addSongToSetList(Song(songName, songArtist, songGenre, interactor.setList!!))
+        setListRepository.addSongToSetList(Song(songName, songArtist, songGenre, setListRepository.setList!!))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe( { }, { t -> Timber.e(t)})
@@ -82,8 +82,8 @@ class SetPresenter constructor(var setListRepository: SetListRepository, var vie
         }
     }
 
-    override fun onPause() {
-        super.onPause()
+    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
+    fun onPause() {
         disposables.clear()
     }
 }

@@ -1,7 +1,7 @@
 package setlist.shea.setlist.list.mvp
 
 import android.content.SharedPreferences
-import com.shea.mvp.interactor.BaseInteractor
+import com.shea.mvp.repository.BaseRepository
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import setlist.shea.domain.csv.Parser
@@ -15,7 +15,7 @@ import javax.inject.Inject
 /**
  * Created by Adam on 8/28/2017.
  */
-class SetListInteractor @Inject constructor(songDao: SongDao, setListDao: SetListDao, parser: Parser, writer: Writer, sharedPreferences: SharedPreferences): BaseInteractor() {
+class SetListRepository @Inject constructor(songDao: SongDao, setListDao: SetListDao, parser: Parser, writer: Writer, sharedPreferences: SharedPreferences): BaseRepository() {
 
     private val songDao : SongDao = songDao
     private val setListDao : SetListDao = setListDao

@@ -1,6 +1,5 @@
 package setlist.shea.setlist.list.mvp
 
-import android.view.View
 import com.shea.mvp.presenter.BaseInterface
 import io.reactivex.Flowable
 import setlist.shea.domain.model.SetList
@@ -11,7 +10,7 @@ import setlist.shea.domain.model.Song
  */
 interface SetListContract {
 
-    interface ListViewInterface : BaseInterface.BaseViewInterface {
+    interface View : BaseInterface.BaseViewInterface {
         fun showEmptyState()
         fun showListState()
         fun displaySongs(songs: List<Song>)
@@ -20,11 +19,11 @@ interface SetListContract {
         fun showSetList(setList: Flowable<List<Song>>)
     }
 
-    interface ListPresenterInterface : BaseInterface.BasePresenterInterface {
+    interface Presenter : BaseInterface.BasePresenterInterface {
         fun onAddListFabClicked()
         fun addSetList(setList : SetList)
         fun loadSongsFromSetList(setList: SetList)
         fun songAdded(songName : String, songArtist : String, songGenre : String)
-        fun getListActionListener(): View.OnClickListener
+        fun getListActionListener(): android.view.View.OnClickListener.OnClickListener
     }
 }

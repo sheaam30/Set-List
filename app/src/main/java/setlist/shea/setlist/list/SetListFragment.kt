@@ -13,16 +13,16 @@ import javax.inject.Inject
 /**
  * Created by Adam on 8/28/2017.
  */
-class SetListFragment : BaseFragment<SetListContract.ListPresenterInterface>() {
+class SetListFragment : BaseFragment<SetListContract.Presenter>() {
 
     @Inject
-    lateinit var setListPresenterContract: SetListContract.ListPresenterInterface
+    lateinit var setPresenterContract: SetListContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val setListTitle = arguments?.get(SONGS_KEY)
         if (setListTitle != null && (setListTitle as String).isNotEmpty()) {
-            setListPresenterContract.loadSongsFromSetList(SetList(setListTitle))
+            setPresenterContract.loadSongsFromSetList(SetList(setListTitle))
         }
     }
 
@@ -50,7 +50,7 @@ class SetListFragment : BaseFragment<SetListContract.ListPresenterInterface>() {
         }
     }
 
-    override fun getPresenter(): SetListContract.ListPresenterInterface {
-        return setListPresenterContract
+    override fun getPresenter(): SetListContract.Presenter {
+        return setPresenterContract
     }
 }

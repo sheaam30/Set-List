@@ -1,8 +1,8 @@
 package setlist.shea.setlist.main.mvp
 
 import android.content.DialogInterface
+import android.os.Bundle
 import android.support.v7.app.AlertDialog
-import com.shea.mvp.presenter.BasePresenter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import setlist.shea.domain.model.SetList
@@ -11,23 +11,27 @@ import setlist.shea.domain.model.SetList
 /**
  * Created by Adam on 6/3/2017.
  */
-class MainPresenter constructor(interactor: MainInteractor, view: MainContract.MainViewInterface) : BasePresenter<MainInteractor, MainContract.MainViewInterface>(interactor, view), MainContract.MainPresenterInterface {
+class MainPresenter constructor(var mainRepository: MainRepository, var view: MainContract.View) : MainContract.Presenter {
 
     override fun onCreate() {
         super.onCreate()
-        val setList = interactor.getCurrentSetList()
+        val setList = mainRepository.getCurrentSetList()
         view.showList(setList)
     }
 
+    override fun onSaveState(outState: Bundle) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override fun loadSetListTitles() {
-        interactor.getSetListTitles()
+        mainRepository.getSetListTitles()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { t1, _ -> view.showLoadDialog(t1) }
     }
 
     override fun loadSetList(setList: SetList) {
-        interactor.setCurrentSetList(setList.listName)
+        mainRepository.setCurrentSetList(setList.listName)
         view.showList(setList)
     }
 

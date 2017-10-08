@@ -1,7 +1,7 @@
 package setlist.shea.setlist.main.mvp
 
 import android.content.SharedPreferences
-import com.shea.mvp.interactor.BaseInteractor
+import com.shea.mvp.repository.BaseRepository
 import io.reactivex.Single
 import setlist.shea.domain.db.SetListDao
 import setlist.shea.domain.model.SetList
@@ -10,7 +10,7 @@ import javax.inject.Inject
 /**
  * Created by Adam on 6/3/2017.
  */
-class MainInteractor @Inject constructor(val setListDao: SetListDao, val preferences: SharedPreferences) : BaseInteractor() {
+class MainRepository @Inject constructor(val setListDao: SetListDao, val preferences: SharedPreferences) : BaseRepository() {
 
     val CURRENT_SET_LIST = "currentSetList"
 

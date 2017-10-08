@@ -20,7 +20,7 @@ import setlist.shea.setlist.list.adapter.RecyclerViewAdapter
 /**
  * Created by Adam on 8/28/2017.
  */
-open class SetListView(activity: BaseActivity<*>?) : BaseView<SetListContract.ListPresenterInterface>(activity), SetListContract.ListViewInterface {
+open class SetView(activity: BaseActivity<*>?) : BaseView<SetListContract.Presenter>(activity), SetListContract.View {
 
     lateinit var recyclerView : RecyclerView
     lateinit var viewSwitcher : ViewSwitcher
@@ -29,13 +29,13 @@ open class SetListView(activity: BaseActivity<*>?) : BaseView<SetListContract.Li
 
     override fun onSetupViews(savedInstanceState: Bundle?) {
         recyclerView = bind(R.id.recyclerview)
-        adapter = RecyclerViewAdapter(presenterInterface?.getListActionListener())
+        adapter = RecyclerViewAdapter(presenter?.getListActionListener())
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = adapter
 
         viewSwitcher = bind(R.id.view_switcher)
         fab = bind(R.id.fab)
-        fab.setOnClickListener { _ -> presenterInterface?.onAddListFabClicked() }
+        fab.setOnClickListener { _ -> presenter?.onAddListFabClicked() }
     }
 
     override fun showEmptyState() {
@@ -58,7 +58,7 @@ open class SetListView(activity: BaseActivity<*>?) : BaseView<SetListContract.Li
                 .setView(editText)
                 .setTitle(context.getString(R.string.new_setlist_dialog_title))
                 .setPositiveButton(context.getString(R.string.ok), (DialogInterface.OnClickListener
-                    { _, _ -> presenterInterface?.addSetList(SetList(editText.text.toString()))}))
+                    { _, _ -> presenter?.addSetList(SetList(editText.text.toString()))}))
                 .setNegativeButton(context.getString(R.string.cancel), (DialogInterface.OnClickListener
                     { _, _ ->  }))
                 .show()

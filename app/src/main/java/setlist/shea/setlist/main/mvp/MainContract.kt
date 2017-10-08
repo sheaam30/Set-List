@@ -9,12 +9,12 @@ import setlist.shea.domain.model.SetList
  */
 interface MainContract {
 
-    interface MainViewInterface : BaseInterface.BaseViewInterface {
+    interface View : BaseInterface.BaseViewInterface<Presenter> {
         fun showList(setList : SetList?)
         fun showLoadDialog(setList : List<SetList>)
     }
 
-    interface MainPresenterInterface : BaseInterface.BasePresenterInterface {
+    interface Presenter : BaseInterface.BasePresenterInterface {
         fun loadSetListTitles()
         fun loadSetList(setList: SetList)
         fun getAddSetListClickListener(setListArray: Array<String?>) : DialogInterface.OnClickListener

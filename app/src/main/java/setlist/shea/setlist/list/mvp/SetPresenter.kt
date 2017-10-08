@@ -15,17 +15,22 @@ import timber.log.Timber
 /**
  * Created by Adam on 8/28/2017.
  */
-class SetListPresenter constructor(setListInteractor: SetListInteractor, view: SetListContract.ListViewInterface) : BasePresenter<SetListInteractor, SetListContract.ListViewInterface>(setListInteractor, view), SetListContract.ListPresenterInterface {
+class SetPresenter constructor(var setListRepository: SetListRepository, var view: SetListContract.View) : SetListContract.Presenter {
 
     var disposables : CompositeDisposable = CompositeDisposable()
 
-    override fun onSetupViews(savedInstanceState: Bundle?) {
-        val currentSetList = interactor.setList
+    override fun onSaveState(outState: Bundle) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun onCreate() {
+        super.onCreate()
+        val currentSetList = setListRepository.setList
         if (currentSetList == null) {
             view.showEmptyState()
         } else {
             view.showListState()
-            disposables.add(interactor.getSongsFromSetList(currentSetList)
+            disposables.add(setListRepository.getSongsFromSetList(currentSetList)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({ songs ->
@@ -41,7 +46,7 @@ class SetListPresenter constructor(setListInteractor: SetListInteractor, view: S
     }
 
     override fun addSetList(setList : SetList) {
-        interactor.addSetList(setList)
+        setListRepository.addSetList(setList)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe()
@@ -49,8 +54,8 @@ class SetListPresenter constructor(setListInteractor: SetListInteractor, view: S
     }
 
     override fun loadSongsFromSetList(setList: SetList) {
-        interactor.setList = setList
-        interactor.getSongsFromSetList(setList)
+        setListRepository.setList = setList
+        setListRepository.getSongsFromSetList(setList)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ songs ->
@@ -60,7 +65,7 @@ class SetListPresenter constructor(setListInteractor: SetListInteractor, view: S
     }
 
     override fun songAdded(songName: String, songArtist: String, songGenre: String) {
-        interactor.addSongToSetList(Song(songName, songArtist, songGenre, interactor.setList!!))
+        setListRepository.addSongToSetList(Song(songName, songArtist, songGenre, interactor.setList!!))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe( { }, { t -> Timber.e(t)})

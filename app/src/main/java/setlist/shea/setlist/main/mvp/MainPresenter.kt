@@ -2,7 +2,7 @@ package setlist.shea.setlist.main.mvp
 
 import android.content.DialogInterface
 import android.os.Bundle
-import com.shea.mvp.presenter.Presenter
+import com.shea.mvp.presenter.BasePresenter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import setlist.shea.domain.model.SetList
@@ -11,7 +11,7 @@ import setlist.shea.domain.model.SetList
 /**
  * Created by Adam on 6/3/2017.
  */
-class MainPresenter constructor(var mainRepository: MainContract.Repository, var mainView: MainContract.View) : Presenter<MainContract.Repository, MainContract.View>(mainRepository, mainView), MainContract.Presenter {
+class MainPresenter constructor(var mainRepository: MainContract.Repository, var mainView: MainContract.View) : BasePresenter<MainContract.Repository, MainContract.View>(mainRepository, mainView), MainContract.Presenter {
 
     override fun onSetupViews(savedInstanceState: Bundle?) {
         val setList = mainRepository.getCurrentSetList()

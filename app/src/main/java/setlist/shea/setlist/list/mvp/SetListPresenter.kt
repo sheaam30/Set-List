@@ -4,7 +4,7 @@ import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.OnLifecycleEvent
 import android.os.Bundle
 import android.view.View
-import com.shea.mvp.presenter.Presenter
+import com.shea.mvp.presenter.BasePresenter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -19,7 +19,7 @@ import timber.log.Timber
  */
 
 class SetListPresenter constructor(private var setListRepository: SetListContract.Repository, private var setListView: SetListContract.View)
-    : Presenter<SetListContract.Repository, SetListContract.View>(setListRepository, setListView), SetListContract.Presenter {
+    : BasePresenter<SetListContract.Repository, SetListContract.View>(setListRepository, setListView), SetListContract.Presenter {
 
     var disposables : CompositeDisposable = CompositeDisposable()
 

@@ -13,12 +13,12 @@ import setlist.shea.setlist.main.mvp.MainRepository
 class MainActivityModule {
 
     @Provides
-    fun provideMainPresenter(view: MainContract.View, repository: MainRepository) : MainContract.Presenter {
+    fun provideMainPresenter(view: MainContract.View, repository: MainContract.Repository) : MainContract.Presenter {
         return MainPresenter(repository, view)
     }
 
     @Provides
-    fun provideMainRepository(setListDao: SetListDao, sharedPreferences: SharedPreferences) : MainRepository {
+    fun provideMainRepository(setListDao: SetListDao, sharedPreferences: SharedPreferences) : MainContract.Repository {
         return MainRepository(setListDao, sharedPreferences)
     }
 

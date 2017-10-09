@@ -16,6 +16,7 @@ interface SetListContract {
         fun addSetList(list: SetList) : Completable
         fun addSongToSetList(song : Song) : Completable
         fun getSongsFromSetList(currentSetList: SetList) : Flowable<List<Song>>
+        var setList : SetList
     }
 
     interface View : BaseContract.View<Presenter> {

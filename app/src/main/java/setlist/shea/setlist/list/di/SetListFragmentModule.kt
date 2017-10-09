@@ -19,12 +19,12 @@ import setlist.shea.setlist.list.mvp.SetListRepository
 class SetListFragmentModule {
 
     @Provides
-    fun provideListPresenter(setViewContract: SetListContract.View, setListRepository: SetListRepository) : SetListContract.Presenter {
+    fun provideListPresenter(setViewContract: SetListContract.View, setListRepository: SetListContract.Repository) : SetListContract.Presenter {
         return SetListPresenter(setListRepository, setViewContract)
     }
 
     @Provides
-    fun provideListRepository(songDao: SongDao, setListDao: SetListDao, parser: Parser, writer: Writer, sharedPreferences: SharedPreferences) : SetListRepository {
+    fun provideListRepository(songDao: SongDao, setListDao: SetListDao, parser: Parser, writer: Writer, sharedPreferences: SharedPreferences) : SetListContract.Repository {
         return SetListRepository(songDao, setListDao, parser, writer, sharedPreferences)
     }
 

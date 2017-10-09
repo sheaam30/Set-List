@@ -11,23 +11,23 @@ import setlist.shea.domain.model.SetList
 /**
  * Created by Adam on 6/3/2017.
  */
-class MainPresenter constructor(var mainRepository: MainRepository, var mainView: MainContract.View) : Presenter<MainRepository, MainContract.View>(mainRepository, mainView), MainContract.Presenter {
+class MainPresenter constructor(var mainRepository: MainContract.Repository, var mainView: MainContract.View) : Presenter<MainContract.Repository, MainContract.View>(mainRepository, mainView), MainContract.Presenter {
 
     override fun onSetupViews(savedInstanceState: Bundle?) {
         val setList = mainRepository.getCurrentSetList()
-        view.showList(setList)
+        mainView.showList(setList)
     }
 
     override fun loadSetListTitles() {
         mainRepository.getSetListTitles()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { t1, _ -> view.showLoadDialog(t1) }
+                .subscribe { t1, _ -> mainView.showLoadDialog(t1) }
     }
 
     override fun loadSetList(setList: SetList) {
         mainRepository.setCurrentSetList(setList.listName)
-        view.showList(setList)
+        mainView.showList(setList)
     }
 
     override fun getAddSetListClickListener(setListArray: Array<String?>): DialogInterface.OnClickListener {

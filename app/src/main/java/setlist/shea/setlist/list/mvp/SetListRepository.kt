@@ -22,7 +22,7 @@ class SetListRepository @Inject constructor(songDao: SongDao, setListDao: SetLis
     private val writer : Writer = writer
     private val sharedPrefs : SharedPreferences = sharedPreferences
 
-    var setList : SetList? = null
+    override lateinit var setList: SetList
 
     override fun addSetList(list: SetList) : Completable {
         return Completable.defer {

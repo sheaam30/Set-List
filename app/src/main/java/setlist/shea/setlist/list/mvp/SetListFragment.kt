@@ -59,7 +59,9 @@ class SetListFragment : BaseFragment<SetListContract.Presenter>(), SetListContra
             setPresenterContract.loadSongsFromSetList(SetList(setListTitle))
         }
     }
-    override fun onSetupViews(savedInstanceState: Bundle?) {
+
+    override fun setupViews(bundle: Bundle?) {
+        super.setupViews(bundle)
         recyclerView = bind(R.id.recyclerview)
         adapter = RecyclerViewAdapter(setPresenterContract?.getListActionListener())
         recyclerView.layoutManager = LinearLayoutManager(context)

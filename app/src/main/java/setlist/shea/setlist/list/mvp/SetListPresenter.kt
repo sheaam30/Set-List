@@ -18,31 +18,32 @@ import timber.log.Timber
  * Created by Adam on 8/28/2017.
  */
 
-class SetListPresenter constructor(private var setListRepository: SetListRepository, private var setListView: SetListContract.View)
-    : Presenter<SetListRepository, SetListContract.View>(setListRepository, setListView), SetListContract.Presenter {
+class SetListPresenter constructor(private var setListRepository: SetListContract.Repository, private var setListView: SetListContract.View)
+    : Presenter<SetListContract.Repository, SetListContract.View>(setListRepository, setListView), SetListContract.Presenter {
 
     var disposables : CompositeDisposable = CompositeDisposable()
 
     override fun onSetupViews(savedInstanceState: Bundle?) {
         super.onSetupViews(savedInstanceState)
-        val currentSetList = setListRepository.setList
-        if (currentSetList == null) {
+        if (setListRepository.setList == null) {
             setListView.showEmptyState()
         } else {
             setListView.showListState()
-            disposables.add(setListRepository.getSongsFromSetList(currentSetList)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe({ songs ->
-                        view.displaySongs(songs)
-                    }, {
-                        _: Throwable -> view.showErrorState()
-                    }))
+            disposables.add(setListRepository.getSongsFromSetList(setListRepository.setList)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ songs ->
+                    setListView.displaySongs(songs)
+                }, {
+                    _: Throwable -> setListView.showErrorState()
+                }))
         }
+
+
     }
 
     override fun onAddListFabClicked() {
-        view.showAddListDialog()
+        setListView.showAddListDialog()
     }
 
     override fun addSetList(setList : SetList) {
@@ -50,22 +51,24 @@ class SetListPresenter constructor(private var setListRepository: SetListReposit
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe()
-        view.showListState()
+        setListView.showListState()
     }
 
     override fun loadSongsFromSetList(setList: SetList) {
         setListRepository.setList = setList
         setListRepository.getSongsFromSetList(setList)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ songs ->
-                    view.showListState()
-                    view.displaySongs(songs) },
-                        { t -> Timber.e(t) })
+        .subscribeOn(Schedulers.newThread())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe({ songs ->
+            setListView.showListState()
+            setListView.displaySongs(songs)
+        }) { t ->
+            Timber.e(t)
+        }
     }
 
     override fun songAdded(songName: String, songArtist: String, songGenre: String) {
-        setListRepository.addSongToSetList(Song(songName, songArtist, songGenre, setListRepository.setList!!))
+        setListRepository.addSongToSetList(Song(songName, songArtist, songGenre, setListRepository.setList))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe( { }, { t -> Timber.e(t)})

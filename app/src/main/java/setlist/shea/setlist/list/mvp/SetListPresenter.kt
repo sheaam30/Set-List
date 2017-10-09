@@ -2,7 +2,7 @@ package setlist.shea.setlist.list.mvp
 
 import android.os.Bundle
 import android.view.View
-import com.shea.mvp.presenter.BasePresenter
+import com.shea.mvp.presenter.Presenter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -15,7 +15,7 @@ import timber.log.Timber
 /**
  * Created by Adam on 8/28/2017.
  */
-class SetPresenter constructor(var setListRepository: SetListRepository, var view: SetListContract.View) : SetListContract.Presenter {
+class SetListPresenter constructor(private var setListRepository: SetListRepository, private var setListView: SetListContract.View) : Presenter<SetListRepository, SetListContract.View>(setListRepository, setListView), SetListContract.Presenter {
 
     var disposables : CompositeDisposable = CompositeDisposable()
 
@@ -23,8 +23,8 @@ class SetPresenter constructor(var setListRepository: SetListRepository, var vie
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun onCreate() {
-        super.onCreate()
+    override fun onSetupViews(savedInstanceState: Bundle?) {
+        super.onSetupViews(savedInstanceState)
         val currentSetList = setListRepository.setList
         if (currentSetList == null) {
             view.showEmptyState()

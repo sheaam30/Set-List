@@ -2,7 +2,7 @@ package setlist.shea.setlist.main.mvp
 
 import android.content.DialogInterface
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
+import com.shea.mvp.presenter.Presenter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import setlist.shea.domain.model.SetList
@@ -11,16 +11,15 @@ import setlist.shea.domain.model.SetList
 /**
  * Created by Adam on 6/3/2017.
  */
-class MainPresenter constructor(var mainRepository: MainRepository, var view: MainContract.View) : MainContract.Presenter {
-
-    override fun onCreate() {
-        super.onCreate()
-        val setList = mainRepository.getCurrentSetList()
-        view.showList(setList)
-    }
+class MainPresenter constructor(var mainRepository: MainRepository, var mainView: MainContract.View) : Presenter<MainRepository, MainContract.View>(mainRepository, mainView), MainContract.Presenter {
 
     override fun onSaveState(outState: Bundle) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun onSetupViews(savedInstanceState: Bundle?) {
+        val setList = mainRepository.getCurrentSetList()
+        view.showList(setList)
     }
 
     override fun loadSetListTitles() {
@@ -37,7 +36,7 @@ class MainPresenter constructor(var mainRepository: MainRepository, var view: Ma
 
     override fun getAddSetListClickListener(setListArray: Array<String?>): DialogInterface.OnClickListener {
         return DialogInterface.OnClickListener { dialog, _ ->
-            loadSetList(SetList(setListArray[(dialog as AlertDialog).listView.checkedItemPosition]!!)) }
+            loadSetList(SetList(setListArray[(dialog as android.app.AlertDialog).listView.checkedItemPosition]!!)) }
     }
 
     //

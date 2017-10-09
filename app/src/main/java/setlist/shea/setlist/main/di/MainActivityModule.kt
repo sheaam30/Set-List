@@ -13,8 +13,8 @@ import setlist.shea.setlist.main.mvp.MainRepository
 class MainActivityModule {
 
     @Provides
-    fun provideMainPresenter(viewContract: MainContract.View, mainInteractor: MainRepository) : MainContract.Presenter {
-        return MainPresenter(mainInteractor, viewContract)
+    fun provideMainPresenter(view: MainContract.View, repository: MainRepository) : MainContract.Presenter {
+        return MainPresenter(repository, view)
     }
 
     @Provides

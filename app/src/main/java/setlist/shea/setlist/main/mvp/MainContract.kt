@@ -1,8 +1,8 @@
 package setlist.shea.setlist.main.mvp
 
 import android.content.DialogInterface
-import com.shea.mvp.presenter.BasePresenterInterface
-import com.shea.mvp.view.BaseViewInterface
+import com.shea.mvp.BaseContract
+import io.reactivex.Single
 import setlist.shea.domain.model.SetList
 
 /**
@@ -10,12 +10,18 @@ import setlist.shea.domain.model.SetList
  */
 interface MainContract {
 
-    interface View : BaseViewInterface {
+    interface Repository : BaseContract.Repository {
+        fun getSetListTitles() : Single<List<SetList>>
+        fun setCurrentSetList(setList: String)
+        fun getCurrentSetList() : SetList?
+    }
+
+    interface View : BaseContract.View {
         fun showList(setList : SetList?)
         fun showLoadDialog(setList : List<SetList>)
     }
 
-    interface Presenter : BasePresenterInterface<View> {
+    interface Presenter : BaseContract.Presenter {
         fun loadSetListTitles()
         fun loadSetList(setList: SetList)
         fun getAddSetListClickListener(setListArray: Array<String?>) : DialogInterface.OnClickListener

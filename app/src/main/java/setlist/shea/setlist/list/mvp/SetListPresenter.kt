@@ -4,6 +4,7 @@ import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.OnLifecycleEvent
 import android.os.Bundle
 import android.view.View
+import com.shea.mvp.presenter.Presenter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -16,20 +17,19 @@ import timber.log.Timber
 /**
  * Created by Adam on 8/28/2017.
  */
-class SetPresenter constructor(var setListRepository: SetListRepository, override var view: SetListContract.View) : SetListContract.Presenter {
+
+class SetListPresenter constructor(private var setListRepository: SetListRepository, private var setListView: SetListContract.View)
+    : Presenter<SetListRepository, SetListContract.View>(setListRepository, setListView), SetListContract.Presenter {
 
     var disposables : CompositeDisposable = CompositeDisposable()
 
-    override fun onSaveState(outState: Bundle) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun onViewsSetup() {
+    override fun onSetupViews(savedInstanceState: Bundle?) {
+        super.onSetupViews(savedInstanceState)
         val currentSetList = setListRepository.setList
         if (currentSetList == null) {
-            view.showEmptyState()
+            setListView.showEmptyState()
         } else {
-            view.showListState()
+            setListView.showListState()
             disposables.add(setListRepository.getSongsFromSetList(currentSetList)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
@@ -83,7 +83,7 @@ class SetPresenter constructor(var setListRepository: SetListRepository, overrid
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
-    fun onPause() {
+    override fun onPause() {
         disposables.clear()
     }
 }

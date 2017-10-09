@@ -1,17 +1,24 @@
 package setlist.shea.setlist.list.mvp
 
-import com.shea.mvp.presenter.BasePresenterInterface
-import com.shea.mvp.view.BaseViewInterface
+import com.shea.mvp.BaseContract
+import io.reactivex.Completable
 import io.reactivex.Flowable
 import setlist.shea.domain.model.SetList
 import setlist.shea.domain.model.Song
+
 
 /**
  * Created by Adam on 8/28/2017.
  */
 interface SetListContract {
 
-    interface View : BaseViewInterface {
+    interface Repository : BaseContract.Repository {
+        fun addSetList(list: SetList) : Completable
+        fun addSongToSetList(song : Song) : Completable
+        fun getSongsFromSetList(currentSetList: SetList) : Flowable<List<Song>>
+    }
+
+    interface View : BaseContract.View {
         fun showEmptyState()
         fun showListState()
         fun displaySongs(songs: List<Song>)
@@ -20,7 +27,7 @@ interface SetListContract {
         fun showSetList(setList: Flowable<List<Song>>)
     }
 
-    interface Presenter : BasePresenterInterface<View> {
+    interface Presenter : BaseContract.Presenter {
         fun onAddListFabClicked()
         fun addSetList(setList : SetList)
         fun loadSongsFromSetList(setList: SetList)

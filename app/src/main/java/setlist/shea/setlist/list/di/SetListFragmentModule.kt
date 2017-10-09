@@ -7,10 +7,10 @@ import setlist.shea.domain.csv.Parser
 import setlist.shea.domain.csv.Writer
 import setlist.shea.domain.db.SetListDao
 import setlist.shea.domain.db.SongDao
-import setlist.shea.setlist.list.mvp.SetListFragment
 import setlist.shea.setlist.list.mvp.SetListContract
+import setlist.shea.setlist.list.mvp.SetListFragment
+import setlist.shea.setlist.list.mvp.SetListPresenter
 import setlist.shea.setlist.list.mvp.SetListRepository
-import setlist.shea.setlist.list.mvp.SetPresenter
 
 /**
  * Created by Adam on 8/28/2017.
@@ -20,7 +20,7 @@ class SetListFragmentModule {
 
     @Provides
     fun provideListPresenter(setViewContract: SetListContract.View, setListInteractor: SetListRepository) : SetListContract.Presenter {
-        return SetPresenter(setListInteractor, setViewContract)
+        return SetListPresenter(setListInteractor, setViewContract)
     }
 
     @Provides

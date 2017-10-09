@@ -6,12 +6,9 @@ import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ViewSwitcher
-import dagger.android.support.DaggerFragment
+import com.shea.mvp.fragment.BaseFragment
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -26,7 +23,7 @@ import javax.inject.Inject
 /**
  * Created by Adam on 8/28/2017.
  */
-class SetListFragment : DaggerFragment(), SetListContract.View {
+class SetListFragment : BaseFragment<SetListContract.Presenter>(), SetListContract.View {
 
     @Inject
     lateinit var setPresenterContract: SetListContract.Presenter
@@ -41,7 +38,6 @@ class SetListFragment : DaggerFragment(), SetListContract.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        lifecycle.addObserver(setPresenterContract)
         val setListTitle = arguments?.get(SONGS_KEY)
         if (setListTitle != null && (setListTitle as String).isNotEmpty()) {
             setPresenterContract.loadSongsFromSetList(SetList(setListTitle))
@@ -64,12 +60,11 @@ class SetListFragment : DaggerFragment(), SetListContract.View {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater?.inflate(layoutId, container, false)
+    override fun getPresenter(): SetListContract.Presenter {
+        return setPresenterContract
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onSetupViews(savedInstanceState: Bundle?) {
         recyclerView = bind(R.id.recyclerview)
         adapter = RecyclerViewAdapter(setPresenterContract?.getListActionListener())
         recyclerView.layoutManager = LinearLayoutManager(context)
@@ -78,9 +73,8 @@ class SetListFragment : DaggerFragment(), SetListContract.View {
         viewSwitcher = bind(R.id.view_switcher)
         fab = bind(R.id.fab)
         fab.setOnClickListener { _ -> setPresenterContract?.onAddListFabClicked() }
-
-        setPresenterContract.onViewsSetup()
     }
+
 
     override fun showEmptyState() {
         viewSwitcher.displayedChild = 0
@@ -102,7 +96,7 @@ class SetListFragment : DaggerFragment(), SetListContract.View {
                 .setView(editText)
                 .setTitle(context.getString(R.string.new_setlist_dialog_title))
                 .setPositiveButton(context.getString(R.string.ok), (DialogInterface.OnClickListener
-                { _, _ -> setPresenterContract?.addSetList(SetList(editText.text.toString()))}))
+                { _, _ -> setPresenterContract.addSetList(SetList(editText.text.toString()))}))
                 .setNegativeButton(context.getString(R.string.cancel), (DialogInterface.OnClickListener
                 { _, _ ->  }))
                 .show()
@@ -116,5 +110,4 @@ class SetListFragment : DaggerFragment(), SetListContract.View {
     }
 
     override fun showErrorState() {}
-
 }

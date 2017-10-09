@@ -28,21 +28,13 @@ class SetListFragment : BaseFragment<SetListContract.Presenter>(), SetListContra
     @Inject
     lateinit var setPresenterContract: SetListContract.Presenter
 
-    lateinit var recyclerView : RecyclerView
-    lateinit var viewSwitcher : ViewSwitcher
-    lateinit var adapter : RecyclerViewAdapter
-    lateinit var fab : FloatingActionButton
+    private lateinit var recyclerView : RecyclerView
+    private lateinit var viewSwitcher : ViewSwitcher
+    private lateinit var adapter : RecyclerViewAdapter
+    private lateinit var fab : FloatingActionButton
 
     override val layoutId: Int
         get() = R.layout.fragment_list
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        val setListTitle = arguments?.get(SONGS_KEY)
-        if (setListTitle != null && (setListTitle as String).isNotEmpty()) {
-            setPresenterContract.loadSongsFromSetList(SetList(setListTitle))
-        }
-    }
 
     companion object {
         val SONGS_KEY = "songs"
@@ -60,10 +52,13 @@ class SetListFragment : BaseFragment<SetListContract.Presenter>(), SetListContra
         }
     }
 
-    override fun getPresenter(): SetListContract.Presenter {
-        return setPresenterContract
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val setListTitle = arguments?.get(SONGS_KEY)
+        if (setListTitle != null && (setListTitle as String).isNotEmpty()) {
+            setPresenterContract.loadSongsFromSetList(SetList(setListTitle))
+        }
     }
-
     override fun onSetupViews(savedInstanceState: Bundle?) {
         recyclerView = bind(R.id.recyclerview)
         adapter = RecyclerViewAdapter(setPresenterContract?.getListActionListener())
@@ -75,6 +70,9 @@ class SetListFragment : BaseFragment<SetListContract.Presenter>(), SetListContra
         fab.setOnClickListener { _ -> setPresenterContract?.onAddListFabClicked() }
     }
 
+    override fun getPresenter(): SetListContract.Presenter {
+        return setPresenterContract
+    }
 
     override fun showEmptyState() {
         viewSwitcher.displayedChild = 0

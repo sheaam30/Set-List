@@ -18,7 +18,7 @@ interface SetListContract {
         fun getSongsFromSetList(currentSetList: SetList) : Flowable<List<Song>>
     }
 
-    interface View : BaseContract.View {
+    interface View : BaseContract.View<Presenter> {
         fun showEmptyState()
         fun showListState()
         fun displaySongs(songs: List<Song>)

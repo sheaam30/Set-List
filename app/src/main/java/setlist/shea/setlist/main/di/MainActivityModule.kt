@@ -18,7 +18,7 @@ class MainActivityModule {
     }
 
     @Provides
-    fun provideMainInteractor(setListDao: SetListDao, sharedPreferences: SharedPreferences) : MainRepository {
+    fun provideMainRepository(setListDao: SetListDao, sharedPreferences: SharedPreferences) : MainRepository {
         return MainRepository(setListDao, sharedPreferences)
     }
 

@@ -11,7 +11,7 @@ import setlist.shea.domain.model.SetList
 /**
  * Created by Adam on 6/3/2017.
  */
-class MainPresenter constructor(var mainRepository: MainContract.Repository, var mainView: MainContract.View) : BasePresenter<MainContract.Repository, MainContract.View>(mainRepository, mainView), MainContract.Presenter {
+class MainPresenter constructor(private var mainRepository: MainContract.Repository, private var mainView: MainContract.View) : BasePresenter<MainContract.Repository, MainContract.View>(mainRepository, mainView), MainContract.Presenter {
 
     override fun onSetupViews(savedInstanceState: Bundle?) {
         val setList = mainRepository.getCurrentSetList()

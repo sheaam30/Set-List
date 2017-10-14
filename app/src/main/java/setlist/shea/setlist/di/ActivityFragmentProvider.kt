@@ -3,10 +3,10 @@ package setlist.shea.setlist.di
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 import setlist.shea.domain.di.CsvModule
-import setlist.shea.setlist.list.mvp.SetListFragment
 import setlist.shea.setlist.list.di.SetListFragmentModule
-import setlist.shea.setlist.main.mvp.MainActivity
+import setlist.shea.setlist.list.mvp.SetListFragment
 import setlist.shea.setlist.main.di.MainActivityModule
+import setlist.shea.setlist.main.mvp.MainActivity
 
 
 /**

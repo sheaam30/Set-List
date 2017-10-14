@@ -23,8 +23,6 @@ open class MainActivity : BaseActivity<MainContract.Presenter>(), MainContract.V
     private lateinit var toolbar : Toolbar
 
     override fun setupViews(bundle: Bundle?) {
-        super.setupViews(bundle)
-
         toolbar = bind(R.id.toolbar)
         setSupportActionBar(toolbar)
     }

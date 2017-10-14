@@ -61,7 +61,6 @@ class SetListFragment : BaseFragment<SetListContract.Presenter>(), SetListContra
     }
 
     override fun setupViews(bundle: Bundle?) {
-        super.setupViews(bundle)
         recyclerView = bind(R.id.recyclerview)
         adapter = RecyclerViewAdapter(setPresenterContract?.getListActionListener())
         recyclerView.layoutManager = LinearLayoutManager(context)

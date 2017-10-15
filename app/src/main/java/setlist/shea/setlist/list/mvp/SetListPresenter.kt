@@ -61,8 +61,10 @@ class SetListPresenter constructor(private var setListRepository: SetListContrac
         .subscribeOn(Schedulers.newThread())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe({ songs ->
-            setListView.showListState()
-            setListView.displaySongs(songs)
+            if (songs.isNotEmpty()) {
+                setListView.showListState()
+                setListView.displaySongs(songs)
+            }
         }) { t ->
             Timber.e(t)
         }

@@ -23,7 +23,7 @@ class MainPresenter @Inject constructor(private var mainRepository: MainContract
         mainRepository.getSetListTitles()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { t1, _ -> mainView.showLoadDialog(t1) }
+                .subscribe { list, _ -> mainView.showLoadDialog(list) }
     }
 
     override fun loadSetList(setList: SetList) {
@@ -37,40 +37,5 @@ class MainPresenter @Inject constructor(private var mainRepository: MainContract
     }
 
     override fun onSaveState(outState: Bundle) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
-
-    //
-//    private fun getShareFileIntent(): Intent {
-//
-//        /*
-//                 * Get a File for the selected file name.
-//                 * Assume that the file names are in the
-//                 * mImageFilename array.
-//                 */
-//        val requestFile = File(mImageFilename[position])
-//        /*
-//                 * Most file-related method calls need to be in
-//                 * try-catch blocks.
-//                 */
-//        // Use the FileProvider to get a content URI
-//        try {
-//            fileUri = FileProvider.getUriForFile(
-//                    this@MainActivity,
-//                    "com.example.myapp.fileprovider",
-//                    requestFile)
-//        } catch (e: IllegalArgumentException) {
-//            Log.e("File Selector",
-//                    "The selected file can't be shared: " + clickedFilename)
-//        }
-//
-//        val u1 = Uri.fromFile(file)
-//
-//
-//        val sendIntent = Intent(Intent.ACTION_SEND)
-//        sendIntent.putExtra(Intent.EXTRA_SUBJECT, "Person Details")
-//        sendIntent.putExtra(Intent.EXTRA_STREAM, u1)
-//        sendIntent.type = "text/richtext"
-//    }
-
 }

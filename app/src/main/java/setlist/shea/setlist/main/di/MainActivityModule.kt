@@ -4,6 +4,7 @@ import android.content.SharedPreferences
 import dagger.Module
 import dagger.Provides
 import setlist.shea.domain.db.SetListDao
+import setlist.shea.setlist.SetListApp
 import setlist.shea.setlist.main.mvp.MainActivity
 import setlist.shea.setlist.main.mvp.MainContract
 import setlist.shea.setlist.main.mvp.MainPresenter

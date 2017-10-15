@@ -1,5 +1,6 @@
 package setlist.shea.setlist.list.di
 
+import android.app.Application
 import android.content.SharedPreferences
 import dagger.Module
 import dagger.Provides
@@ -7,6 +8,7 @@ import setlist.shea.domain.csv.Parser
 import setlist.shea.domain.csv.Writer
 import setlist.shea.domain.db.SetListDao
 import setlist.shea.domain.db.SongDao
+import setlist.shea.setlist.SetListApp
 import setlist.shea.setlist.list.mvp.SetListContract
 import setlist.shea.setlist.list.mvp.SetListFragment
 import setlist.shea.setlist.list.mvp.SetListPresenter
@@ -24,8 +26,8 @@ class SetListFragmentModule {
     }
 
     @Provides
-    fun provideListRepository(songDao: SongDao, setListDao: SetListDao, parser: Parser, writer: Writer, sharedPreferences: SharedPreferences) : SetListContract.Repository {
-        return SetListRepository(songDao, setListDao, parser, writer, sharedPreferences)
+    fun provideListRepository(songDao: SongDao, setListDao: SetListDao, parser: Parser, writer: Writer, context : Application) : SetListContract.Repository {
+        return SetListRepository(songDao, setListDao, parser, writer, context)
     }
 
     @Provides

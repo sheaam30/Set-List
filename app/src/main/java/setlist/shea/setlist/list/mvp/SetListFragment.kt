@@ -2,10 +2,12 @@ package setlist.shea.setlist.list.mvp
 
 import android.app.AlertDialog
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.MenuItem
 import android.widget.EditText
 import android.widget.ViewSwitcher
 import com.shea.mvp.fragment.BaseFragment
@@ -23,7 +25,7 @@ import javax.inject.Inject
 /**
  * Created by Adam on 8/28/2017.
  */
-class SetListFragment : BaseFragment<SetListContract.Presenter>(), SetListContract.View {
+open class SetListFragment : BaseFragment<SetListContract.Presenter>(), SetListContract.View {
 
     @Inject
     lateinit var setPresenterContract: SetListContract.Presenter
@@ -61,6 +63,7 @@ class SetListFragment : BaseFragment<SetListContract.Presenter>(), SetListContra
     }
 
     override fun setupViews(bundle: Bundle?) {
+        setHasOptionsMenu(true)
         recyclerView = bind(R.id.recyclerview)
         adapter = RecyclerViewAdapter(setPresenterContract?.getListActionListener())
         recyclerView.layoutManager = LinearLayoutManager(context)
@@ -88,6 +91,14 @@ class SetListFragment : BaseFragment<SetListContract.Presenter>(), SetListContra
         adapter.notifyDataSetChanged()
     }
 
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if (item?.itemId == R.id.export) {
+            setPresenterContract.exportClicked()
+            return true
+        }
+        return false
+    }
+
     override fun showAddListDialog() {
         val editText = EditText(context)
 
@@ -106,6 +117,10 @@ class SetListFragment : BaseFragment<SetListContract.Presenter>(), SetListContra
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { list -> adapter.songs = list }
+    }
+
+    override fun shareFileIntent(intent: Intent) {
+        startActivity(Intent.createChooser(intent, "Share File"))
     }
 
     override fun showErrorState() {}

@@ -38,11 +38,11 @@ open class MainActivity : BaseActivity<MainContract.Presenter>(), MainContract.V
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
-            R.id.load -> { mainPresenter.loadSetListTitles()
+            R.id.load -> {
+                mainPresenter.loadSetListTitles()
                 return true
-            }
+            } else -> { return super.onOptionsItemSelected(item) }
         }
-        return false
     }
 
     override fun showList(setList : SetList?) {

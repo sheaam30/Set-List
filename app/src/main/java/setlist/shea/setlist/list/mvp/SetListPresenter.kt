@@ -2,6 +2,8 @@ package setlist.shea.setlist.list.mvp
 
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.OnLifecycleEvent
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import com.shea.mvp.presenter.BasePresenter
@@ -13,6 +15,7 @@ import setlist.shea.domain.model.Song
 import setlist.shea.setlist.list.add_song_dialog.AddSongCallback
 import setlist.shea.setlist.list.add_song_dialog.AddSongDialog
 import timber.log.Timber
+
 
 /**
  * Created by Adam on 8/28/2017.
@@ -38,8 +41,6 @@ class SetListPresenter constructor(private var setListRepository: SetListContrac
                     _: Throwable -> setListView.showErrorState()
                 }))
         }
-
-
     }
 
     override fun onAddListFabClicked() {
@@ -83,6 +84,23 @@ class SetListPresenter constructor(private var setListRepository: SetListContrac
             })
             addSongDialog.show()
         }
+    }
+
+    override fun exportClicked() {
+        setListRepository.shareSetListFile(setListRepository.setList)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe( { file ->
+                    val intent = Intent()
+                    intent.type = "text/csv"
+                    intent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://"+ file.path))
+                    intent.putExtra(Intent.EXTRA_SUBJECT,
+                            "Sharing File...")
+                    intent.putExtra(Intent.EXTRA_TEXT, "Sharing File...")
+                    setListView.shareFileIntent(intent)
+                }, {
+                    Timber.e("Failure")
+                })
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)

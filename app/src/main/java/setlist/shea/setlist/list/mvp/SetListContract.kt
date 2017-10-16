@@ -31,7 +31,7 @@ interface SetListContract {
         fun showAddListDialog()
         fun showSetList(setList: Flowable<List<Song>>)
         //Don't like to do nav stuff in the view
-        fun shareFileIntent(intent : Intent)
+        fun shareFileIntent(intent: Intent)
     }
 
     interface Presenter : BaseContract.Presenter {
@@ -41,5 +41,6 @@ interface SetListContract {
         fun songAdded(songName : String, songArtist : String, songGenre : String)
         fun getListActionListener(): android.view.View.OnClickListener
         fun exportClicked()
+        fun getShareIntent(file: File): Intent
     }
 }

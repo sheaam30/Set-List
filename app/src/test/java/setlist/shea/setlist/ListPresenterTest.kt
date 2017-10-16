@@ -9,22 +9,22 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.internal.schedulers.ExecutorScheduler
 import io.reactivex.plugins.RxJavaPlugins
 import org.junit.Before
-import org.junit.BeforeClass
 import org.junit.Test
 import org.mockito.BDDMockito.given
-import org.mockito.BDDMockito.never
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.Mockito.verify
+import org.mockito.MockitoAnnotations
 import setlist.shea.domain.model.SetList
 import setlist.shea.domain.model.Song
-import setlist.shea.setlist.list.mvp.*
+import setlist.shea.setlist.list.mvp.SetListContract
+import setlist.shea.setlist.list.mvp.SetListPresenter
 import java.util.concurrent.TimeUnit
 
 /**
  * Created by Adam on 10/14/2017.
  */
-open class ListTest {
+open class ListPresenterTest {
 
     lateinit var setListPresenter : SetListContract.Presenter
     @Mock
@@ -54,8 +54,8 @@ open class ListTest {
     @Before
     fun setup() {
         beforeClass()
-        setListView = Mockito.mock(SetListFragment::class.java)
-        setListRepository = Mockito.mock(SetListRepository::class.java)
+
+        MockitoAnnotations.initMocks(this)
 
         setListPresenter = SetListPresenter(setListRepository, setListView)
     }

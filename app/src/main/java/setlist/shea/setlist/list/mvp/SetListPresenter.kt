@@ -15,6 +15,7 @@ import setlist.shea.domain.model.Song
 import setlist.shea.setlist.list.add_song_dialog.AddSongCallback
 import setlist.shea.setlist.list.add_song_dialog.AddSongDialog
 import timber.log.Timber
+import java.io.File
 
 
 /**
@@ -93,12 +94,7 @@ class SetListPresenter constructor(private var setListRepository: SetListContrac
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe( { file ->
-                    val intent = Intent()
-                    intent.type = "text/csv"
-                    intent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://"+ file.path))
-                    intent.putExtra(Intent.EXTRA_SUBJECT,
-                            "Sharing File...")
-                    intent.putExtra(Intent.EXTRA_TEXT, "Sharing File...")
+                    val intent = getShareIntent(file)
                     setListView.shareFileIntent(intent)
                 }, {
                     Timber.e("Failure")
@@ -108,5 +104,15 @@ class SetListPresenter constructor(private var setListRepository: SetListContrac
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
     override fun onPause() {
         disposables.clear()
+    }
+
+    override fun getShareIntent(file : File) : Intent {
+        val intent = Intent()
+        intent.type = "text/csv"
+        intent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://"+ file.path))
+        intent.putExtra(Intent.EXTRA_SUBJECT,
+                "Sharing File...")
+        intent.putExtra(Intent.EXTRA_TEXT, "Sharing File...")
+        return intent
     }
 }

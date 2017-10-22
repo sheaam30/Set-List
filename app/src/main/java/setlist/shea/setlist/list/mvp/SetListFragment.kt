@@ -102,7 +102,6 @@ open class SetListFragment : BaseFragment<SetListContract.Presenter>(), SetListC
     override fun showAddListDialog() {
         val editText = EditText(context)
 
-        
         AlertDialog.Builder(context)
                 .setView(editText)
                 .setTitle(context.getString(R.string.new_setlist_dialog_title))

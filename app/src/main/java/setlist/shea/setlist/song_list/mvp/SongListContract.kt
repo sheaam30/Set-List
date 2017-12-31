@@ -1,4 +1,4 @@
-package setlist.shea.setlist.list.mvp
+package setlist.shea.setlist.song_list.mvp
 
 import android.content.Intent
 import com.shea.mvp.BaseContract
@@ -13,7 +13,7 @@ import java.io.File
 /**
  * Created by Adam on 8/28/2017.
  */
-interface SetListContract {
+interface SongListContract {
 
     interface Repository : BaseContract.Repository {
         fun addSetList(list: SetList) : Completable

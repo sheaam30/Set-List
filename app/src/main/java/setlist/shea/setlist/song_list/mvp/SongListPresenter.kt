@@ -1,4 +1,4 @@
-package setlist.shea.setlist.list.mvp
+package setlist.shea.setlist.song_list.mvp
 
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.OnLifecycleEvent
@@ -12,8 +12,8 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import setlist.shea.domain.model.SetList
 import setlist.shea.domain.model.Song
-import setlist.shea.setlist.list.add_song_dialog.AddSongCallback
-import setlist.shea.setlist.list.add_song_dialog.AddSongDialog
+import setlist.shea.setlist.song_list.add_song_dialog.AddSongCallback
+import setlist.shea.setlist.song_list.add_song_dialog.AddSongDialog
 import timber.log.Timber
 import java.io.File
 
@@ -22,49 +22,49 @@ import java.io.File
  * Created by Adam on 8/28/2017.
  */
 
-class SetListPresenter constructor(private var setListRepository: SetListContract.Repository, private var setListView: SetListContract.View)
-    : BasePresenter<SetListContract.Repository, SetListContract.View>(setListRepository, setListView), SetListContract.Presenter {
+class SongListPresenter constructor(private var songListRepository: SongListContract.Repository, private var songListView: SongListContract.View)
+    : BasePresenter<SongListContract.Repository, SongListContract.View>(songListRepository, songListView), SongListContract.Presenter {
 
     var disposables : CompositeDisposable = CompositeDisposable()
 
     override fun onSetupViews(savedInstanceState: Bundle?) {
         super.onSetupViews(savedInstanceState)
-        if (setListRepository.setList == null) {
-            setListView.showEmptyState()
+        if (songListRepository.setList == null) {
+            songListView.showEmptyState()
         } else {
-            setListView.showListState()
-            disposables.add(setListRepository.getSongsFromSetList(setListRepository.setList)
+            songListView.showListState()
+            disposables.add(songListRepository.getSongsFromSetList(songListRepository.setList)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ songs ->
-                    setListView.displaySongs(songs)
+                    songListView.displaySongs(songs)
                 }, {
-                    _: Throwable -> setListView.showErrorState()
+                    _: Throwable -> songListView.showErrorState()
                 }))
         }
     }
 
     override fun onAddListFabClicked() {
-        setListView.showAddListDialog()
+        songListView.showAddListDialog()
     }
 
     override fun addSetList(setList : SetList) {
-        setListRepository.addSetList(setList)
+        songListRepository.addSetList(setList)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe()
-        setListView.showListState()
+        songListView.showListState()
     }
 
     override fun loadSongsFromSetList(setList: SetList) {
-        setListRepository.setList = setList
-        setListRepository.getSongsFromSetList(setList)
+        songListRepository.setList = setList
+        songListRepository.getSongsFromSetList(setList)
         .subscribeOn(Schedulers.newThread())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe({ songs ->
             if (songs.isNotEmpty()) {
-                setListView.showListState()
-                setListView.displaySongs(songs)
+                songListView.showListState()
+                songListView.displaySongs(songs)
             }
         }) { t ->
             Timber.e(t)
@@ -72,7 +72,7 @@ class SetListPresenter constructor(private var setListRepository: SetListContrac
     }
 
     override fun songAdded(songName: String, songArtist: String, songGenre: String) {
-        setListRepository.addSongToSetList(Song(songName, songArtist, songGenre, setListRepository.setList))
+        songListRepository.addSongToSetList(Song(songName, songArtist, songGenre, songListRepository.setList))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe( { }, { t -> Timber.e(t)})
@@ -90,12 +90,12 @@ class SetListPresenter constructor(private var setListRepository: SetListContrac
     }
 
     override fun exportClicked() {
-        setListRepository.shareSetListFile(setListRepository.setList)
+        songListRepository.shareSetListFile(songListRepository.setList)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe( { file ->
                     val intent = getShareIntent(file)
-                    setListView.shareFileIntent(intent)
+                    songListView.shareFileIntent(intent)
                 }, {
                     Timber.e("Failure")
                 })

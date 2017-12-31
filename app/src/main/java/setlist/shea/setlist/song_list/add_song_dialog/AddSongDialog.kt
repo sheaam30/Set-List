@@ -1,11 +1,9 @@
-package setlist.shea.setlist.list.add_song_dialog
+package setlist.shea.setlist.song_list.add_song_dialog
 
-import android.app.ActionBar
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
 import android.support.constraint.ConstraintLayout
-import android.view.ViewGroup
 import android.view.Window
 import android.widget.Button
 import android.widget.EditText

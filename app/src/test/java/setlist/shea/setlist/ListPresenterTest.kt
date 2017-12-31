@@ -17,8 +17,8 @@ import org.mockito.Mockito.verify
 import org.mockito.MockitoAnnotations
 import setlist.shea.domain.model.SetList
 import setlist.shea.domain.model.Song
-import setlist.shea.setlist.list.mvp.SetListContract
-import setlist.shea.setlist.list.mvp.SetListPresenter
+import setlist.shea.setlist.song_list.mvp.SongListContract
+import setlist.shea.setlist.song_list.mvp.SongListPresenter
 import java.util.concurrent.TimeUnit
 
 /**
@@ -26,11 +26,11 @@ import java.util.concurrent.TimeUnit
  */
 open class ListPresenterTest {
 
-    lateinit var setListPresenter : SetListContract.Presenter
+    lateinit var songListPresenter: SongListContract.Presenter
     @Mock
-    lateinit var setListView : SetListContract.View
+    lateinit var songListView: SongListContract.View
     @Mock
-    lateinit var setListRepository : SetListContract.Repository
+    lateinit var songListRepository: SongListContract.Repository
 
     private val setList = SetList("SetList")
 
@@ -57,57 +57,57 @@ open class ListPresenterTest {
 
         MockitoAnnotations.initMocks(this)
 
-        setListPresenter = SetListPresenter(setListRepository, setListView)
+        songListPresenter = SongListPresenter(songListRepository, songListView)
     }
 
     @Test
     fun addSetListClickedTest() {
-        setListPresenter.onAddListFabClicked()
+        songListPresenter.onAddListFabClicked()
 
-        verify(setListView).showAddListDialog()
+        verify(songListView).showAddListDialog()
     }
 
     @Test
     fun addSetList() {
-        given(setListRepository.addSetList(setList)).willReturn(Completable.complete())
+        given(songListRepository.addSetList(setList)).willReturn(Completable.complete())
 
-        setListPresenter.addSetList(setList)
+        songListPresenter.addSetList(setList)
 
-        verify(setListRepository).addSetList(setList)
-        verify(setListView).showListState()
+        verify(songListRepository).addSetList(setList)
+        verify(songListView).showListState()
     }
 
     @Test
     fun loadSongsFromSetListTest() {
         val listOfSongs = mutableListOf(Song("Song1", "Artist1", "Genre1", setList))
 
-        given(setListRepository.getSongsFromSetList(setList)).willReturn(Flowable.just(listOfSongs))
+        given(songListRepository.getSongsFromSetList(setList)).willReturn(Flowable.just(listOfSongs))
 
-        setListPresenter.loadSongsFromSetList(setList)
+        songListPresenter.loadSongsFromSetList(setList)
 
-        verify(setListView).showListState()
-        verify(setListView).displaySongs(listOfSongs)
+        verify(songListView).showListState()
+        verify(songListView).displaySongs(listOfSongs)
     }
 
     @Test
     fun loadSongsFromEmptySetListTest() {
         val listOfSongs = emptyList<Song>()
 
-        given(setListRepository.getSongsFromSetList(setList)).willReturn(Flowable.just(listOfSongs))
+        given(songListRepository.getSongsFromSetList(setList)).willReturn(Flowable.just(listOfSongs))
 
-        setListPresenter.loadSongsFromSetList(setList)
+        songListPresenter.loadSongsFromSetList(setList)
 
-        verify(setListView, Mockito.never()).showListState()
-        verify(setListView, Mockito.never()).displaySongs(listOfSongs)
+        verify(songListView, Mockito.never()).showListState()
+        verify(songListView, Mockito.never()).displaySongs(listOfSongs)
     }
 
     @Test
     fun songsAddedTest() {
         val song = Song("Song1", "Artist1", "Genre1", setList)
 
-        given(setListRepository.addSongToSetList(song)).willReturn(Completable.complete())
-        given(setListRepository.setList).willReturn(setList)
+        given(songListRepository.addSongToSetList(song)).willReturn(Completable.complete())
+        given(songListRepository.setList).willReturn(setList)
 
-        setListPresenter.songAdded(song.name, song.artist, song.genre)
+        songListPresenter.songAdded(song.name, song.artist, song.genre)
     }
 }

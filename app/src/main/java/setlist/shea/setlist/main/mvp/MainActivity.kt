@@ -9,7 +9,7 @@ import android.view.MenuItem
 import com.shea.mvp.activity.BaseActivity
 import setlist.shea.domain.model.SetList
 import setlist.shea.setlist.R
-import setlist.shea.setlist.list.mvp.SetListFragment
+import setlist.shea.setlist.song_list.mvp.SongListFragment
 import javax.inject.Inject
 
 open class MainActivity : BaseActivity<MainContract.Presenter>(), MainContract.View {
@@ -46,7 +46,7 @@ open class MainActivity : BaseActivity<MainContract.Presenter>(), MainContract.V
     }
 
     override fun showList(setList : SetList?) {
-        val setListFragment = SetListFragment.newInstance(setList)
+        val setListFragment = SongListFragment.newInstance(setList)
         supportFragmentManager.beginTransaction()
                 .replace(R.id.content, setListFragment)
                 .commit()

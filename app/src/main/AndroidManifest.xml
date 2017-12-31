@@ -16,8 +16,7 @@
             android:theme="@style/AppTheme">
         </activity>
         <activity
-            android:name=".setlists.SetListActivity"
-            android:label="@string/title_activity_set_list"
+            android:name=".set_list.SetListActivity"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

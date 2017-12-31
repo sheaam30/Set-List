@@ -1,25 +1,22 @@
-package setlist.shea.setlist.list.mvp
+package setlist.shea.setlist.song_list.mvp
 
 import android.app.Application
-import android.content.SharedPreferences
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
-import io.reactivex.functions.Function
 import setlist.shea.domain.csv.Parser
 import setlist.shea.domain.csv.Writer
 import setlist.shea.domain.db.SetListDao
 import setlist.shea.domain.db.SongDao
 import setlist.shea.domain.model.SetList
 import setlist.shea.domain.model.Song
-import setlist.shea.setlist.SetListApp
 import java.io.File
 import javax.inject.Inject
 
 /**
  * Created by Adam on 8/28/2017.
  */
-open class SetListRepository @Inject constructor(private val songDao: SongDao, private val setListDao: SetListDao, parser: Parser, writer: Writer, var context : Application): SetListContract.Repository {
+open class SongListRepository @Inject constructor(private val songDao: SongDao, private val setListDao: SetListDao, parser: Parser, writer: Writer, var context : Application): SongListContract.Repository {
 
     private val parser : Parser = parser
     private val writer : Writer = writer

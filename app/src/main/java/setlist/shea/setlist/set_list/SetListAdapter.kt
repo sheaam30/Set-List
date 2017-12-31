@@ -1,4 +1,4 @@
-package setlist.shea.setlist.setlists
+package setlist.shea.setlist.set_list
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -11,7 +11,7 @@ import setlist.shea.setlist.R
 /**
  * Created by adam on 12/29/17.
  */
-class SetListAdapter: RecyclerView.Adapter<SetListViewHolder>() {
+class SetListAdapter: RecyclerView.Adapter<SetListAdapter.SetListViewHolder>() {
 
     var setLists: List<SetList> = ArrayList()
 
@@ -25,10 +25,8 @@ class SetListAdapter: RecyclerView.Adapter<SetListViewHolder>() {
     }
 
     override fun getItemCount(): Int = setLists.size
-}
 
-class SetListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-    var textView: TextView = itemView.findViewById(R.id.textView)
-
+    class SetListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        var textView: TextView = itemView.findViewById(R.id.textView)
+    }
 }

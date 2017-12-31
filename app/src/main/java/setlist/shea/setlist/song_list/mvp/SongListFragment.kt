@@ -1,4 +1,4 @@
-package setlist.shea.setlist.list.mvp
+package setlist.shea.setlist.song_list.mvp
 
 import android.app.AlertDialog
 import android.content.DialogInterface
@@ -17,7 +17,7 @@ import io.reactivex.schedulers.Schedulers
 import setlist.shea.domain.model.SetList
 import setlist.shea.domain.model.Song
 import setlist.shea.setlist.R
-import setlist.shea.setlist.list.adapter.RecyclerViewAdapter
+import setlist.shea.setlist.song_list.adapter.RecyclerViewAdapter
 import javax.inject.Inject
 
 
@@ -25,10 +25,10 @@ import javax.inject.Inject
 /**
  * Created by Adam on 8/28/2017.
  */
-open class SetListFragment : BaseFragment<SetListContract.Presenter>(), SetListContract.View {
+open class SongListFragment : BaseFragment<SongListContract.Presenter>(), SongListContract.View {
 
     @Inject
-    lateinit var setPresenterContract: SetListContract.Presenter
+    lateinit var songPresenterContract: SongListContract.Presenter
 
     private lateinit var recyclerView : RecyclerView
     private lateinit var viewSwitcher : ViewSwitcher
@@ -45,8 +45,8 @@ open class SetListFragment : BaseFragment<SetListContract.Presenter>(), SetListC
          * new instance pattern for fragment
          */
         @JvmStatic
-        fun newInstance(setList : SetList?): SetListFragment {
-            val newsFragment = SetListFragment()
+        fun newInstance(setList : SetList?): SongListFragment {
+            val newsFragment = SongListFragment()
             val args = Bundle()
             args.putString(SONGS_KEY, setList?.toString())
             newsFragment.arguments = args
@@ -58,24 +58,24 @@ open class SetListFragment : BaseFragment<SetListContract.Presenter>(), SetListC
         super.onCreate(savedInstanceState)
         val setListTitle = arguments?.get(SONGS_KEY)
         if (setListTitle != null && (setListTitle as String).isNotEmpty()) {
-            setPresenterContract.loadSongsFromSetList(SetList(setListTitle))
+            songPresenterContract.loadSongsFromSetList(SetList(setListTitle))
         }
     }
 
     override fun setupViews(bundle: Bundle?) {
         setHasOptionsMenu(true)
         recyclerView = bind(R.id.recyclerview)
-        adapter = RecyclerViewAdapter(setPresenterContract?.getListActionListener())
+        adapter = RecyclerViewAdapter(songPresenterContract?.getListActionListener())
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = adapter
 
         viewSwitcher = bind(R.id.view_switcher)
         fab = bind(R.id.fab)
-        fab.setOnClickListener { _ -> setPresenterContract?.onAddListFabClicked() }
+        fab.setOnClickListener { _ -> songPresenterContract?.onAddListFabClicked() }
     }
 
-    override fun getPresenter(): SetListContract.Presenter {
-        return setPresenterContract
+    override fun getPresenter(): SongListContract.Presenter {
+        return songPresenterContract
     }
 
     override fun showEmptyState() {
@@ -93,7 +93,7 @@ open class SetListFragment : BaseFragment<SetListContract.Presenter>(), SetListC
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if (item?.itemId == R.id.export) {
-            setPresenterContract.exportClicked()
+            songPresenterContract.exportClicked()
             return true
         }
         return false
@@ -107,7 +107,7 @@ open class SetListFragment : BaseFragment<SetListContract.Presenter>(), SetListC
                 .setView(editText)
                 .setTitle(context.getString(R.string.new_setlist_dialog_title))
                 .setPositiveButton(context.getString(R.string.ok), (DialogInterface.OnClickListener
-                { _, _ -> setPresenterContract.addSetList(SetList(editText.text.toString()))}))
+                { _, _ -> songPresenterContract.addSetList(SetList(editText.text.toString()))}))
                 .setNegativeButton(context.getString(R.string.cancel), (DialogInterface.OnClickListener
                 { _, _ ->  }))
                 .show()

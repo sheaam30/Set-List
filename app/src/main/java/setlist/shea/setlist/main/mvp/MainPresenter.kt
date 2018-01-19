@@ -16,7 +16,7 @@ class MainPresenter @Inject constructor(private var mainRepository: MainContract
 
     override fun onSetupViews(savedInstanceState: Bundle?) {
         val setList = mainRepository.getCurrentSetList()
-        mainView.showList(setList)
+        mainView.showSetList(setList)
     }
 
     override fun loadSetListTitles() {
@@ -28,7 +28,7 @@ class MainPresenter @Inject constructor(private var mainRepository: MainContract
 
     override fun loadSetList(setList: SetList) {
         mainRepository.setCurrentSetList(setList.listName)
-        mainView.showList(setList)
+        mainView.showSetList(setList)
     }
 
     override fun getAddSetListClickListener(setListArray: Array<String?>): DialogInterface.OnClickListener {

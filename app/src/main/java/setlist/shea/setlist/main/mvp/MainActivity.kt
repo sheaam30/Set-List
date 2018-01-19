@@ -4,12 +4,10 @@ import android.app.AlertDialog
 import android.content.DialogInterface
 import android.os.Bundle
 import android.support.v7.widget.Toolbar
-import android.view.Menu
-import android.view.MenuItem
 import com.shea.mvp.activity.BaseActivity
 import setlist.shea.domain.model.SetList
 import setlist.shea.setlist.R
-import setlist.shea.setlist.song_list.mvp.SongListFragment
+import setlist.shea.setlist.set_list.SetListFragment
 import javax.inject.Inject
 
 open class MainActivity : BaseActivity<MainContract.Presenter>(), MainContract.View {
@@ -31,27 +29,11 @@ open class MainActivity : BaseActivity<MainContract.Presenter>(), MainContract.V
         return mainPresenter
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item?.itemId) {
-            R.id.load -> {
-                mainPresenter.loadSetListTitles()
-                return true
-            } else -> { return super.onOptionsItemSelected(item) }
-        }
-    }
-
-    override fun showList(setList : SetList?) {
-        val setListFragment = SongListFragment.newInstance(setList)
+    override fun showSetList(setList : SetList?) {
+        val setListFragment = SetListFragment.newInstance()
         supportFragmentManager.beginTransaction()
                 .replace(R.id.content, setListFragment)
                 .commit()
-
-        toolbar.title = setList?.listName
     }
 
     override fun showLoadDialog(setList: List<SetList>) {

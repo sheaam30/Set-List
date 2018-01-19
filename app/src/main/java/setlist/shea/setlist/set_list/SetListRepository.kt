@@ -16,6 +16,9 @@ class SetListRepository @Inject constructor(private var setListDao: SetListDao) 
 
     @WorkerThread
     fun addSetList(setList: SetList) : Completable =
-        Completable.fromAction {  setListDao.insertSetList(setList) }
+            Completable.fromAction {  setListDao.insertSetList(setList) }
+
+    fun deleteSetList(setList: SetList): Completable =
+            Completable.fromAction { setListDao.delete(setList) }
 
 }

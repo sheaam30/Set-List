@@ -17,7 +17,7 @@ interface MainContract {
     }
 
     interface View : BaseContract.View<Presenter> {
-        fun showList(setList : SetList?)
+        fun showSetList(setList : SetList?)
         fun showLoadDialog(setList : List<SetList>)
     }
 

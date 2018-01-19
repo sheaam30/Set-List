@@ -14,22 +14,18 @@ class SetListReducers {
     companion object {
         fun reducer(): Reducer<Action, AppState>? {
             return Reducers.matchClass<Action, AppState>()
-                    .`when`(SetListActions.StartAction::class.java, startAction())
-                    .`when`(SetListActions.AddSetListClickedAction::class.java, addSetListClickedAction())
-                    .`when`(SetListActions.SetListResponseAction::class.java, setListResponseAction())
-                    .`when`(SetListActions.AddSetListAction::class.java, addSetListAction())
+                    .`when`(SetListActions.Updated::class.java, setListResponseAction())
         }
 
-        private fun addSetListAction() : Reducer<SetListActions.AddSetListAction, AppState> =
-                Reducer { action, _ -> AppState.SetListState.AddSetListState() }
 
-        private fun setListResponseAction(): Reducer<SetListActions.SetListResponseAction, AppState> =
-                Reducer { action: SetListActions.SetListResponseAction, _: AppState ->  AppState.SetListState.ResultsState(action.setList) }
-
-        private fun startAction() : Reducer<Action, AppState> =
-                Reducer { _, _ -> AppState.SetListState.IdleState() }
+        private fun setListResponseAction(): Reducer<SetListActions.Updated, AppState> =
+                Reducer { action: SetListActions.Updated, state: AppState ->
+                    state.copy(setListState = state.setListState.copy(setLists = action.setList, isStarting = false, isAddDialogShowing = false))
+                }
 
         private fun addSetListClickedAction() : Reducer<Action, AppState> =
-                Reducer { _, _ -> AppState.SetListState.AddSetListState() }
+                Reducer { _, state ->
+                    state.copy(setListState = state.setListState.copy(isAddDialogShowing = true))
+                }
     }
 }

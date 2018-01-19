@@ -12,7 +12,7 @@ android {
     buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "shea.setlist"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -64,6 +64,7 @@ dependencies {
     implementation "me.tatarka.redux:redux-core:0.10"
     implementation "me.tatarka.redux:redux-android:0.10"
     implementation "me.tatarka.redux:redux-android-lifecycle:0.10"
+    implementation "com.daimajia.swipelayout:library:1.2.0@aar"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {

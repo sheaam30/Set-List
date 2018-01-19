@@ -12,7 +12,7 @@ import setlist.shea.setlist.R
 /**
  * Created by Adam on 10/4/2017.
  */
-class AddSongDialog(context: Context, var addSongCallback: AddSongCallback) : Dialog(context) {
+class AddSongDialog(context: Context, private var addSongFunc: (name: String, artist: String, genre: String) -> Unit) : Dialog(context) {
 
     private lateinit var addButton : Button
     private lateinit var cancelButton : Button
@@ -37,8 +37,9 @@ class AddSongDialog(context: Context, var addSongCallback: AddSongCallback) : Di
         genreText = findViewById(R.id.song_genre)
 
         addButton.setOnClickListener {
-            addSongCallback.addSongClicked(
-                nameText.text.toString(), artistText.text.toString(), genreText.text.toString())
+            addSongFunc(nameText.text.toString(),
+                    artistText.text.toString(),
+                    genreText.text.toString())
             dismiss()
         }
 

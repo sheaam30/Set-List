@@ -14,8 +14,12 @@
     <string name="artist">Artist</string>
     <string name="song_name">Song Name</string>
     <string name="add">Add</string>
-    <string name="load_setlist">Load SetList</string>
-    <string name="export">Export SetList</string>
+    <string name="load_setlist">Load Set list</string>
+    <string name="export">Export Set list</string>
     <string name="set_list">Set List</string>
     <string name="enter_set_list">Enter Set list</string>
+    <plurals name="songs">
+        <item quantity="one">%d Song</item>
+        <item quantity="other">%d Songs</item>
+    </plurals>
 </resources>

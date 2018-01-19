@@ -5,10 +5,10 @@ import dagger.android.ContributesAndroidInjector
 import setlist.shea.domain.di.CsvModule
 import setlist.shea.setlist.main.di.MainActivityModule
 import setlist.shea.setlist.main.mvp.MainActivity
-import setlist.shea.setlist.set_list.SetListActivity
+import setlist.shea.setlist.set_list.SetListFragment
 import setlist.shea.setlist.set_list.di.SetListActivityModule
 import setlist.shea.setlist.song_list.di.SetListFragmentModule
-import setlist.shea.setlist.song_list.mvp.SongListFragment
+import setlist.shea.setlist.song_list.SongListFragment
 
 
 /**
@@ -25,5 +25,5 @@ abstract class ActivityFragmentProvider {
     internal abstract fun provideSetListFragment(): SongListFragment
 
     @ContributesAndroidInjector(modules = arrayOf(SetListActivityModule::class))
-    internal abstract fun provideSetListActivity(): SetListActivity
+    internal abstract fun provideSetListActivity(): SetListFragment
 }

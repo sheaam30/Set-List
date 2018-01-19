@@ -7,8 +7,7 @@ import setlist.shea.setlist.Action
  * Created by adamshea on 12/30/17.
  */
 sealed class SetListActions: Action {
-    class StartAction : SetListActions()
-    class AddSetListClickedAction : SetListActions()
-    data class SetListResponseAction(val setList: List<SetList>) : SetListActions()
-    data class AddSetListAction(private val setList: String) : SetListActions()
+    class Start : SetListActions()
+    class Loading: SetListActions()
+    data class Updated(val setList: List<SetList>) : SetListActions()
 }

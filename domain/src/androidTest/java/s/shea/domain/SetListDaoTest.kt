@@ -13,7 +13,7 @@ class SetListDaoTest : DbTest() {
 
     @Test
     fun insertSetList() {
-        db?.setListDao()?.insertSetList(SetList("The Ritz"))
+        db?.setListDao()?.insertSetList(SetList("The Ritz", emptyList()))
 
     }
 }

@@ -73,6 +73,6 @@ open class MainPresenterTest {
         mainPresenter.loadSetList(setList)
 
         verify(mainRepository).setCurrentSetList(setList.listName)
-        verify(mainView).showList(setList)
+        verify(mainView).showSetList(setList)
     }
 }

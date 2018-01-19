@@ -6,11 +6,10 @@ import dagger.Provides
 import setlist.shea.domain.csv.Parser
 import setlist.shea.domain.csv.Writer
 import setlist.shea.domain.db.SetListDao
-import setlist.shea.domain.db.SongDao
-import setlist.shea.setlist.song_list.mvp.SongListContract
-import setlist.shea.setlist.song_list.mvp.SongListFragment
-import setlist.shea.setlist.song_list.mvp.SongListPresenter
-import setlist.shea.setlist.song_list.mvp.SongListRepository
+import setlist.shea.setlist.AppStore
+import setlist.shea.setlist.song_list.SongListContract
+import setlist.shea.setlist.song_list.SongListRepository
+import setlist.shea.setlist.song_list.SongListViewModel
 
 /**
  * Created by Adam on 8/28/2017.
@@ -19,17 +18,12 @@ import setlist.shea.setlist.song_list.mvp.SongListRepository
 class SetListFragmentModule {
 
     @Provides
-    fun provideListPresenter(songViewContract: SongListContract.View, songListRepository: SongListContract.Repository) : SongListContract.Presenter {
-        return SongListPresenter(songListRepository, songViewContract)
+    fun provideListPresenter(appStore: AppStore, songListRepository: SongListContract.Repository) : SongListViewModel {
+        return SongListViewModel(appStore, songListRepository)
     }
 
     @Provides
-    fun provideListRepository(songDao: SongDao, setListDao: SetListDao, parser: Parser, writer: Writer, context : Application) : SongListContract.Repository {
-        return SongListRepository(songDao, setListDao, parser, writer, context)
-    }
-
-    @Provides
-    fun provideListView(fragmentSet: SongListFragment) : SongListContract.View {
-        return fragmentSet
+    fun provideListRepository(setListDao: SetListDao, parser: Parser, writer: Writer, context : Application) : SongListContract.Repository {
+        return SongListRepository(setListDao, parser, writer, context)
     }
 }

@@ -6,13 +6,16 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import me.tatarka.redux.android.lifecycle.StoreViewModel
+import setlist.shea.domain.model.SetList
 import setlist.shea.domain.model.Song
 import setlist.shea.setlist.Action
 import setlist.shea.setlist.AppState
 import setlist.shea.setlist.AppStore
 import setlist.shea.setlist.song_list.redux.SongListActions
 import setlist.shea.setlist.song_list.redux.SongListState
+import timber.log.Timber
 import java.io.File
+import java.util.*
 import javax.inject.Inject
 
 
@@ -40,16 +43,16 @@ class SongListViewModel @Inject constructor(appStore: AppStore,
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ setList ->
+                    Timber.i("Dispatch")
                     dispatchAction(SongListActions.SongListUpdatedAction(setList)) }, { }))
     }
 
     fun addSong(song: Song) {
         val songState = store.state.songListState.copy()
         (songState.setList?.songs as MutableList<Song>).add(song)
-        songListRepository.updateSetList(songState.setList)
+        disposable.add(songListRepository.updateSetList(songState.setList)
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {  }
+                .subscribe())
     }
 
     override fun onCleared() {
@@ -58,11 +61,13 @@ class SongListViewModel @Inject constructor(appStore: AppStore,
 
     fun onSongsMoved(fromPosition: Int, toPosition: Int) {
         val newList = store.state.songListState.setList?.songs as MutableList
-        newList.add(toPosition, newList.removeAt(fromPosition))
-        store.state.songListState.setList?.copy(songs = newList)?.let { songListRepository.updateSetList(it)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({}, {})}
+        Collections.swap(newList, toPosition, fromPosition)
+        val setList = store.state.songListState.setList?.copy(songs = newList)
+        if (setList != null) {
+            disposable.add(songListRepository.updateSetList(setList)
+                    .subscribeOn(Schedulers.io())
+                    .subscribe())
+        }
     }
 
     //

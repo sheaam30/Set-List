@@ -5,12 +5,18 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import setlist.shea.domain.model.Song
 import setlist.shea.setlist.R
+import android.view.MotionEvent
+import android.support.v4.view.MotionEventCompat
+import android.view.View
+import android.view.View.OnTouchListener
+
+
 
 
 /**
  * Created by Adam on 8/28/2017.
  */
-class RecyclerViewAdapter(val addItemFunc: () -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class RecyclerViewAdapter(val addItemFunc: () -> Unit, val reOrderClickedFunc: (viewHolder: RecyclerView.ViewHolder) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var songs: List<Song> = ArrayList()
 
@@ -32,7 +38,15 @@ class RecyclerViewAdapter(val addItemFunc: () -> Unit) : RecyclerView.Adapter<Re
         return when (viewType) {
             VIEW_TYPE_SONG -> {
                 val view = LayoutInflater.from(parent?.context).inflate(R.layout.layout_song_list_item, parent, false)
-                SongViewHolder(view)
+                val viewHolder = SongViewHolder(view)
+                // Start a drag whenever the handle view it touched
+                viewHolder.moveItem.setOnTouchListener { view, motionEvent ->
+                    if (motionEvent.action == MotionEvent.ACTION_DOWN) {
+                        reOrderClickedFunc(viewHolder)
+                    }
+                    false
+                }
+                viewHolder
             }
             VIEW_TYPE_ADD_SONG -> {
                 val view = LayoutInflater.from(parent?.context).inflate(R.layout.layout_add_song_list_item, parent, false)

@@ -8,6 +8,7 @@ import setlist.shea.domain.csv.Parser
 import setlist.shea.domain.csv.Writer
 import setlist.shea.domain.db.SetListDao
 import setlist.shea.domain.model.SetList
+import timber.log.Timber
 import java.io.File
 import javax.inject.Inject
 
@@ -22,18 +23,11 @@ open class SongListRepository @Inject constructor(private val setListDao: SetLis
     private val parser : Parser = parser
     private val writer : Writer = writer
 
-    override fun addSetList(list: SetList) : Completable {
-        return Completable.defer {
-            Completable.create {  setListDao.insertSetList(list) }
-        }
-    }
-
     override fun getSetList(listName: String): Flowable<SetList> = setListDao.getSetList(listName)
 
-    override fun updateSetList(setList: SetList) : Completable {
-        return Completable.defer {
-            Completable.create { setListDao.updateSetList(setList) }
-        }
+    override fun updateSetList(setList: SetList) : Completable = Completable.fromAction {
+                Timber.i("Completable")
+                setListDao.insertSetList(setList)
     }
 
     override fun shareSetListFile(currentSetList : SetList) : Single<File> {

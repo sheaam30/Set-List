@@ -11,7 +11,7 @@ import android.support.v7.widget.helper.ItemTouchHelper
 class MyItemTouchHelperCallback(private var callbackItemTouch: CallbackItemTouch // interface
 ) : ItemTouchHelper.Callback() {
 
-    override fun isLongPressDragEnabled(): Boolean = true
+    override fun isLongPressDragEnabled(): Boolean = false
 
     override fun isItemViewSwipeEnabled(): Boolean = false // swiped disabled
 
@@ -21,6 +21,10 @@ class MyItemTouchHelperCallback(private var callbackItemTouch: CallbackItemTouch
     }
 
     override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
+        if (viewHolder.itemViewType != target.itemViewType) {
+            return false
+        }
+
         callbackItemTouch.itemTouchOnMove(viewHolder.adapterPosition, target.adapterPosition) // information to the interface
         return true
     }

@@ -14,7 +14,6 @@ import java.io.File
 interface SongListContract {
 
     interface Repository : BaseContract.Repository {
-        fun addSetList(list: SetList) : Completable
         fun shareSetListFile(currentSetList: SetList): Single<File>
         fun updateSetList(setList: SetList): Completable
         fun getSetList(listName: String): Flowable<SetList>

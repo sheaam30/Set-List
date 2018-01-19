@@ -21,12 +21,10 @@ interface SetListDao {
     @Query("SELECT * from setlist WHERE listName LIKE :setListName")
     fun getSetList(setListName: String): Flowable<SetList>
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertSetList(setList: SetList)
 
     @Delete
     fun delete(setList: SetList)
 
-    @Update
-    fun updateSetList(setList: SetList)
 }

@@ -31,11 +31,14 @@ import javax.inject.Inject
 /**
  * Created by Adam on 8/28/2017.
  */
-open class SongListFragment : DaggerFragment(), CallbackItemTouch {
+class SongListFragment : DaggerFragment(), CallbackItemTouch {
 
     private lateinit var adapter : RecyclerViewAdapter
     private lateinit var songListViewModel : SongListViewModel
     @Inject lateinit var songListViewModelFactory: SongListViewModelFactory
+
+    private val callback = MyItemTouchHelperCallback(this)
+    private val touchHelper = ItemTouchHelper(callback)
 
     companion object {
         val SETS_KEY = "songs"
@@ -75,11 +78,9 @@ open class SongListFragment : DaggerFragment(), CallbackItemTouch {
         setHasOptionsMenu(false)
         (activity as AppCompatActivity).supportActionBar?.title = setList.listName
         (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        adapter = RecyclerViewAdapter( { showAddSongDialog() } )
+        adapter = RecyclerViewAdapter( { showAddSongDialog() }, { viewHolder -> touchHelper.startDrag(viewHolder) } )
         recyclerview.layoutManager = LinearLayoutManager(context)
         recyclerview.adapter = adapter
-        val callback = MyItemTouchHelperCallback(this)// create MyItemTouchHelperCallback
-        val touchHelper = ItemTouchHelper(callback) // Create ItemTouchHelper and pass with parameter the MyItemTouchHelperCallback
         touchHelper.attachToRecyclerView(recyclerview)
     }
 

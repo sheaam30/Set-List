@@ -11,4 +11,6 @@ interface CallbackItemTouch {
      * @param newPosition end position
      */
     fun itemTouchOnMove(oldPosition: Int, newPosition: Int)
+
+    fun onItemDropped(oldPosition: Int, newPosition: Int)
 }

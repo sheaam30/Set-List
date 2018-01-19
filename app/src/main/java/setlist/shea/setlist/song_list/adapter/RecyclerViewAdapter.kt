@@ -39,14 +39,19 @@ class RecyclerViewAdapter(val addItemFunc: () -> Unit, val reOrderClickedFunc: (
             VIEW_TYPE_SONG -> {
                 val view = LayoutInflater.from(parent?.context).inflate(R.layout.layout_song_list_item, parent, false)
                 val viewHolder = SongViewHolder(view)
+                viewHolder.moveItem.setOnTouchListener(OnTouchListener { v, event ->
+                    false })
                 // Start a drag whenever the handle view it touched
-                viewHolder.moveItem.setOnTouchListener { view, motionEvent ->
-                    if (motionEvent.action == MotionEvent.ACTION_DOWN) {
-                        reOrderClickedFunc(viewHolder)
-                    }
-                    false
+                if (motionEvent.action == MotionEvent.ACTION_DOWN) {
+                    reOrderClickedFunc(viewHolder)
+                    return true
                 }
-                viewHolder
+                if (motionEvent.action == MotionEvent.ACTION_UP) {
+                    reOrderClickedFunc(viewHolder)
+                    true
+                }
+                false
+
             }
             VIEW_TYPE_ADD_SONG -> {
                 val view = LayoutInflater.from(parent?.context).inflate(R.layout.layout_add_song_list_item, parent, false)

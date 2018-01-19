@@ -134,6 +134,11 @@ class SongListFragment : DaggerFragment(), CallbackItemTouch {
     fun showErrorState() {}
 
     override fun itemTouchOnMove(oldPosition: Int, newPosition: Int) {
+//        songListViewModel.onSongsMoved(oldPosition, newPosition)
+        adapter.notifyItemMoved(oldPosition, newPosition)
+    }
+
+    override fun onItemDropped(oldPosition: Int, newPosition: Int) {
         songListViewModel.onSongsMoved(oldPosition, newPosition)
     }
 }

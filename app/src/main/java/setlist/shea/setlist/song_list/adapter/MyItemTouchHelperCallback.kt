@@ -2,7 +2,7 @@ package setlist.shea.setlist.song_list.adapter
 
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
-
+import timber.log.Timber
 
 
 /**
@@ -27,7 +27,21 @@ class MyItemTouchHelperCallback(private var callbackItemTouch: CallbackItemTouch
         return true
     }
 
-    override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-        // swiped disabled
+    override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) { }
+
+    override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
+        super.onSelectedChanged(viewHolder, actionState)
+        when {
+            (actionState == ItemTouchHelper.ACTION_STATE_DRAG && viewHolder!= null) -> {
+                callbackItemTouch.onItemPicked(viewHolder.adapterPosition)
+            }
+        }
+    }
+
+    override fun clearView(recyclerView: RecyclerView?, viewHolder: RecyclerView.ViewHolder?) {
+        super.clearView(recyclerView, viewHolder)
+        if (viewHolder != null) {
+            callbackItemTouch.onItemDropped(viewHolder.adapterPosition)
+        }
     }
 }

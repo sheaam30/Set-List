@@ -1,5 +1,6 @@
 package setlist.shea.setlist.song_list.adapter
 
+import android.graphics.Paint
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.CheckBox
@@ -14,13 +15,22 @@ import setlist.shea.setlist.R
 class SongViewHolder(view : View): RecyclerView.ViewHolder(view),
         SongViewHolderInterface<Song> {
 
-    private val songName : TextView = view.findViewById(R.id.song_name)
-    private val songArtist : TextView = view.findViewById(R.id.song_artist)
-    private val songPlayed : CheckBox = view.findViewById(R.id.played_checkbox)
-    val moveItem = view.findViewById<ImageView>(R.id.reorder)
+    val songName : TextView = view.findViewById(R.id.song_name)
+    val songArtist : TextView = view.findViewById(R.id.song_artist)
+    val songPlayed = view.findViewById<CheckBox>(R.id.played_checkbox)
+    val moveItem = view.findViewById<ImageView>(R.id.reorder)!!
 
     override fun bind(data: Song) {
         songName.text = data.name
         songArtist.text = data.artist
+        songPlayed.isChecked = data.played
+
+        if (data.played) {
+            songName.paintFlags = songName.paintFlags.plus(Paint.STRIKE_THRU_TEXT_FLAG)
+            songArtist.paintFlags = songArtist.paintFlags.plus(Paint.STRIKE_THRU_TEXT_FLAG)
+        } else {
+            songName.paintFlags = songName.paintFlags.minus(Paint.STRIKE_THRU_TEXT_FLAG)
+            songArtist.paintFlags = songArtist.paintFlags.minus(Paint.STRIKE_THRU_TEXT_FLAG)
+        }
     }
 }

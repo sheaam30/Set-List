@@ -5,8 +5,11 @@ import android.content.Context
 import android.content.SharedPreferences
 import dagger.Module
 import dagger.Provides
+import setlist.shea.domain.db.SetListDao
+import setlist.shea.setlist.Action
 import setlist.shea.setlist.AppStore
 import setlist.shea.setlist.R
+import setlist.shea.setlist.song_list.redux.PersistenceMiddleware
 import javax.inject.Singleton
 
 
@@ -28,11 +31,5 @@ class ApplicationModule {
     @Singleton
     fun provideSharedPreferences(context : Context) : SharedPreferences {
         return context.getSharedPreferences(context.getString(R.string.shared_prefs), Context.MODE_PRIVATE)
-    }
-
-    @Provides
-    @Singleton
-    fun provideAppStore() : AppStore {
-        return AppStore()
     }
 }

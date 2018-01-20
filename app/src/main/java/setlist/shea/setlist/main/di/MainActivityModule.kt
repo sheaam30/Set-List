@@ -27,5 +27,4 @@ class MainActivityModule {
     fun provideMainView(activity: MainActivity) : MainContract.View {
         return activity
     }
-
 }

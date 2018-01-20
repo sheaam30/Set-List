@@ -9,6 +9,5 @@ import setlist.shea.domain.model.Song
 @Database(entities = arrayOf(Song::class, SetList::class), version = 1)
 @TypeConverters(CustomConverter::class)
 abstract class SetListDatabase : RoomDatabase() {
-    abstract fun songDao(): SongDao
     abstract fun setListDao() : SetListDao
 }

@@ -6,6 +6,7 @@ import dagger.android.DaggerApplication
 import setlist.shea.domain.di.RoomModule
 import setlist.shea.setlist.di.ApplicationModule
 import setlist.shea.setlist.di.DaggerApplicationComponent
+import setlist.shea.setlist.di.StoreModule
 import timber.log.Timber
 import timber.log.Timber.DebugTree
 
@@ -34,6 +35,7 @@ open class SetListApp : DaggerApplication() {
                 .application(this)
                 .room(RoomModule())
                 .applicationModule(ApplicationModule())
+                .storeModule(StoreModule())
                 .build()
     }
 }

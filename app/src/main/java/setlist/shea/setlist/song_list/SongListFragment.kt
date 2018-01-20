@@ -3,6 +3,7 @@ package setlist.shea.setlist.song_list
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
+import android.graphics.Paint
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
@@ -39,6 +40,8 @@ class SongListFragment : DaggerFragment(), CallbackItemTouch {
 
     private val callback = MyItemTouchHelperCallback(this)
     private val touchHelper = ItemTouchHelper(callback)
+
+    private var itemPicked: Int = -1
 
     companion object {
         val SETS_KEY = "songs"
@@ -78,7 +81,9 @@ class SongListFragment : DaggerFragment(), CallbackItemTouch {
         setHasOptionsMenu(false)
         (activity as AppCompatActivity).supportActionBar?.title = setList.listName
         (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        adapter = RecyclerViewAdapter( { showAddSongDialog() }, { viewHolder -> touchHelper.startDrag(viewHolder) } )
+        adapter = RecyclerViewAdapter( { showAddSongDialog() },
+                { viewHolder -> touchHelper.startDrag(viewHolder) },
+                { checkedPosition -> songListViewModel.dispatchAction(SongListActions.SongItemCheckedAction(checkedPosition)) } )
         recyclerview.layoutManager = LinearLayoutManager(context)
         recyclerview.adapter = adapter
         touchHelper.attachToRecyclerView(recyclerview)
@@ -112,7 +117,7 @@ class SongListFragment : DaggerFragment(), CallbackItemTouch {
         addSongDialog.show()
     }
 
-    fun showListState(songs: List<Song>) {
+    private fun showListState(songs: List<Song>) {
         loading_bar.visibility = View.GONE
         recyclerview.visibility = View.VISIBLE
         adapter.songs = songs
@@ -134,11 +139,14 @@ class SongListFragment : DaggerFragment(), CallbackItemTouch {
     fun showErrorState() {}
 
     override fun itemTouchOnMove(oldPosition: Int, newPosition: Int) {
-//        songListViewModel.onSongsMoved(oldPosition, newPosition)
         adapter.notifyItemMoved(oldPosition, newPosition)
     }
 
-    override fun onItemDropped(oldPosition: Int, newPosition: Int) {
-        songListViewModel.onSongsMoved(oldPosition, newPosition)
+    override fun onItemDropped(itemDroppedIndex: Int) {
+        songListViewModel.onSongsMoved(itemPicked, itemDroppedIndex)
+    }
+
+    override fun onItemPicked(adapterPosition: Int) {
+        itemPicked = adapterPosition
     }
 }

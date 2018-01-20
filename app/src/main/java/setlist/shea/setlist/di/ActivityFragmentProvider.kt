@@ -20,10 +20,10 @@ abstract class ActivityFragmentProvider {
     @ContributesAndroidInjector(modules = arrayOf(MainActivityModule::class))
     internal abstract fun provideMainActivity(): MainActivity
 
-
     @ContributesAndroidInjector(modules = arrayOf(SetListFragmentModule::class, CsvModule::class))
     internal abstract fun provideSetListFragment(): SongListFragment
 
     @ContributesAndroidInjector(modules = arrayOf(SetListActivityModule::class))
     internal abstract fun provideSetListActivity(): SetListFragment
+
 }

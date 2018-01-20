@@ -61,7 +61,7 @@ class SongListViewModel @Inject constructor(appStore: AppStore,
 
     fun onSongsMoved(fromPosition: Int, toPosition: Int) {
         val newList = store.state.songListState.setList?.songs as MutableList
-        Collections.swap(newList, toPosition, fromPosition)
+        newList.add(toPosition, newList.removeAt(fromPosition))
         val setList = store.state.songListState.setList?.copy(songs = newList)
         if (setList != null) {
             disposable.add(songListRepository.updateSetList(setList)

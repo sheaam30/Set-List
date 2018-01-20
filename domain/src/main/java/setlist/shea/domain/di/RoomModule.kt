@@ -6,16 +6,10 @@ import dagger.Module
 import dagger.Provides
 import setlist.shea.domain.db.SetListDao
 import setlist.shea.domain.db.SetListDatabase
-import setlist.shea.domain.db.SongDao
 import javax.inject.Singleton
 
 @Module
 class RoomModule {
-    @Provides
-    @Singleton
-    fun provideSongDao(setListDatabase: SetListDatabase): SongDao {
-        return setListDatabase.songDao()
-    }
 
     @Provides
     @Singleton

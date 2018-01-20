@@ -11,5 +11,5 @@ sealed class SongListActions: Action {
     class ExportSongListClickedAction : SongListActions()
     data class Start(val setList: SetList) : SongListActions()
     class Loading : SongListActions()
-    data class ReorderSongAction(val fromIndex: Long, val toIndex: Long) : SongListActions()
+    data class SongItemCheckedAction(val indexChecked: Int) : SongListActions()
 }

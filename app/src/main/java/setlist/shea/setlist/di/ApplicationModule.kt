@@ -5,11 +5,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import dagger.Module
 import dagger.Provides
-import setlist.shea.domain.db.SetListDao
-import setlist.shea.setlist.Action
-import setlist.shea.setlist.AppStore
 import setlist.shea.setlist.R
-import setlist.shea.setlist.song_list.redux.PersistenceMiddleware
 import javax.inject.Singleton
 
 

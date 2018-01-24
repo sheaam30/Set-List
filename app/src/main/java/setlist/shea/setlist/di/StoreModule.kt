@@ -3,7 +3,7 @@ package setlist.shea.setlist.di
 import dagger.Module
 import dagger.Provides
 import setlist.shea.domain.db.SetListDao
-import setlist.shea.setlist.AppStore
+import setlist.shea.setlist.redux.AppStore
 import javax.inject.Singleton
 
 /**

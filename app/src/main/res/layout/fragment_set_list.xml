@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/set_list_container"
-    tools:context="setlist.shea.setlist.set_list.SetListFragment">
+    tools:context="setlist.shea.setlist.setlist.SetListFragment">
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="0dp"

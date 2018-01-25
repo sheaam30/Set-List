@@ -25,7 +25,7 @@ class CsvWriter : Writer {
         val returnList = ArrayList<Array<String>>()
 
         for (song : Song in songList) {
-            returnList.add(arrayOf(song.name, song.artist, song.setList.listName))
+            returnList.add(arrayOf(song.name, song.artist))
         }
         return returnList
     }

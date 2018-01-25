@@ -39,6 +39,7 @@ dependencies {
     implementation "android.arch.persistence.room:rxjava2:$archVersion"
 
     implementation files('libs/opencsv-3.9.jar')
+    implementation 'com.google.code.gson:gson:2.8.2'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {

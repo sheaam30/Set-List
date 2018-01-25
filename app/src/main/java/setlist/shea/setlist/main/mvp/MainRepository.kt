@@ -14,7 +14,7 @@ import javax.inject.Inject
  */
 open class MainRepository @Inject constructor(val setListDao: SetListDao, val preferences: SharedPreferences) : MainContract.Repository {
 
-    val CURRENT_SET_LIST = "currentSetList"
+    private val CURRENT_SET_LIST = "currentSetList"
 
     override fun getSetListTitles() : Single<List<SetList>> {
         return setListDao.getAll()

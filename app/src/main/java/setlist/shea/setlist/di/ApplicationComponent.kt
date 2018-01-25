@@ -13,7 +13,8 @@ import javax.inject.Singleton
 @Component(modules = arrayOf(RoomModule::class,
         ApplicationModule::class,
         ActivityFragmentProvider::class,
-        AndroidSupportInjectionModule::class))
+        AndroidSupportInjectionModule::class,
+        StoreModule::class))
 interface ApplicationComponent : AndroidInjector<DaggerApplication> {
 
     @Component.Builder
@@ -21,6 +22,7 @@ interface ApplicationComponent : AndroidInjector<DaggerApplication> {
         @BindsInstance fun application(application: Application): Builder
         @BindsInstance fun room(roomModule: RoomModule): Builder
         @BindsInstance fun applicationModule(applicationModule: ApplicationModule): Builder
+        @BindsInstance fun storeModule(storeModule: StoreModule): Builder
         fun build(): ApplicationComponent
     }
 }

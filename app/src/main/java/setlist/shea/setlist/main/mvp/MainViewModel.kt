@@ -26,21 +26,7 @@ class MainViewModel @Inject constructor(private var mainRepository: MainContract
         mainView.showSetList(setList)
     }
 
-    override fun loadSetList(setList: SetList) {
-        mainRepository.setCurrentSetList(setList.listName)
-        mainView.showSetList(setList)
-    }
-
-    override fun getAddSetListClickListener(setListArray: Array<String?>): DialogInterface.OnClickListener {
-        return DialogInterface.OnClickListener { dialog, _ ->
-            loadSetList(SetList(setListArray[(dialog as android.app.AlertDialog).listView.checkedItemPosition]!!)) }
-    }
-
-    fun onSaveState(outState: Bundle) {
-    }
-
     override fun dispatch(action: Action) {
         store.dispatch(action)
     }
-
 }

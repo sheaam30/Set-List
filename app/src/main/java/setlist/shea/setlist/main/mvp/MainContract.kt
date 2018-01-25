@@ -23,8 +23,6 @@ interface MainContract {
 
     interface Presenter {
         fun onSetupViews(savedInstanceState: Bundle?)
-        fun loadSetList(setList: SetList)
-        fun getAddSetListClickListener(setListArray: Array<String?>) : DialogInterface.OnClickListener
         fun dispatch(action: Action)
     }
 }
